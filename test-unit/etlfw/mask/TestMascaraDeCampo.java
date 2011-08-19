@@ -12,7 +12,7 @@ import com.br.guilherme.etlfw.mask.FieldType;
 
 public class TestMascaraDeCampo extends Assert {
 	
-	FieldMask mascaraDeCampo;
+	FieldMask mascaraDeCampo; 
 	
 	@Before
 	public void setUp() {
