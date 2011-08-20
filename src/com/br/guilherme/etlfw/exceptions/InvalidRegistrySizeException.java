@@ -4,10 +4,10 @@ public class InvalidRegistrySizeException extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	public InvalidRegistrySizeException(IndexOutOfBoundsException indexOutOfBoundsException) {
-		System.out.println(indexOutOfBoundsException);
+		super();
 	}
 
 	public InvalidRegistrySizeException() {
-		System.out.println("Invalid Registry Size!!!");
+		super();
 	}
 }

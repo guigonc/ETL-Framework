@@ -40,23 +40,23 @@ public class FileMask {
 
    private RegistryMask getRegistry(final String line, final Set<String> keys) {
       RegistryMask result = null;
-      RegistryMask mask;
+      RegistryMask registry;
       String type;
       int size, start, end;
 
       for (String key : keys) {
-         mask = this.registryMask.get(key);
+         registry = this.registryMask.get(key);
          if (keys.size() == 1) {
-            result = mask;
+            result = registry;
             break;
          }
          size = line.length();
-         start = mask.getInitialPosition() - 1;
-         end = mask.getFinalPosition();
+         start = registry.getInitialPosition() - 1;
+         end = registry.getFinalPosition();
          if ((start <= end) && (end <= size)) {
             type = line.substring(start, end);
-            if (mask.getTableName().equalsIgnoreCase(type)) {
-               result = mask;
+            if (registry.getTableName().equalsIgnoreCase(type)) {
+               result = registry;
                break;
             }
          }

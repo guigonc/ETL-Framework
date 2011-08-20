@@ -13,34 +13,34 @@ import com.br.guilherme.etlfw.mask.FileMask;
 import com.br.guilherme.etlfw.mask.RegistryMask;
 
 public class TestFileMask extends Assert {
-	FileMask mask;
+	FileMask file;
 	
 	@Before
 	public void setUp() {
-		mask = new FileMask("Prof","1.0","Arquivo de Professores");
+		file = new FileMask("Prof","1.0","Arquivo de Professores");
 	}
 	
 	@After
 	public void tearDown() {
-		mask = null;
+		file = null;
 	}
 	
 	@Test
 	public void shouldInstance() {
-		assertTrue(mask instanceof FileMask);
-		assertEquals("PROF", mask.getCode());
-		assertEquals("1.0", mask.getVersion());
-		assertEquals("Arquivo de Professores", mask.getDescription());
-		assertTrue(mask.getRegistryMasks().isEmpty());
+		assertTrue(file instanceof FileMask);
+		assertEquals("PROF", file.getCode());
+		assertEquals("1.0", file.getVersion());
+		assertEquals("Arquivo de Professores", file.getDescription());
+		assertTrue(file.getRegistryMasks().isEmpty());
 	}
 	
 	@Test
 	public void shouldAddRegistryMask() {
 		RegistryMask registryMask = new RegistryMask("Professores", "1.0", "Professor");
 
-		assertTrue(mask.getRegistryMasks().isEmpty());
-		mask.addRegistryMask(registryMask);
-		assertTrue(!mask.getRegistryMasks().isEmpty());
+		assertTrue(file.getRegistryMasks().isEmpty());
+		file.addRegistryMask(registryMask);
+		assertFalse(file.getRegistryMasks().isEmpty());
 	}
 	
 	@Test
@@ -54,10 +54,10 @@ public class TestFileMask extends Assert {
 
 		registryMask.addField(nameMask);
 		registryMask.addField(documentMask);
-		mask.addRegistryMask(registryMask);
+		file.addRegistryMask(registryMask);
 		
 		try {
-			RegistryMask registry = mask.getRegistryWithValues(line);
+			RegistryMask registry = file.getRegistryWithValues(line);
 			assertEquals("Luiz Gomes               ", registry.getFields().get(0).getValue());
 			assertEquals("211.111.111-12", registry.getFields().get(1).getValue());
 		} 
@@ -68,7 +68,7 @@ public class TestFileMask extends Assert {
 	@Test
 	public void shouldCaughtExceptionWithInvalidMask() {
 		try {
-			mask.getRegistryWithValues(new String("Luiz Gomes111.111.111-11"));
+			file.getRegistryWithValues(new String("Luiz Gomes111.111.111-11"));
 			fail();
 		} 
 		catch (UnkownRegistryException e) {} 

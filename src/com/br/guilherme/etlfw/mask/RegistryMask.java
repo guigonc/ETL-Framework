@@ -12,22 +12,22 @@ import com.br.guilherme.etlfw.format.database.TableCreationFormatBuilder;
 
 public class RegistryMask {
 
-   private String code;
+   private String tableName;
    private String version;
    private String description;
    private int size;
    private List<FieldMask> fields;
    private FieldMask identifier;
 
-   public RegistryMask(final String code, String version, final String description) {
-      this.code = code;
+   public RegistryMask(final String tableName, String version, final String description) {
+      this.tableName = tableName;
       this.version = version;
       this.description = description;
       size = 0;
       fields = Collections.emptyList();
    }
    
-   public String getTableName() { return code; }
+   public String getTableName() { return tableName; }
    
    public String getVersion() { return version; }
    
@@ -132,8 +132,8 @@ public class RegistryMask {
       return getIdentifier().getInitialPosition();
    }
 
-   public int getFinalPosition() {
-      return getIdentifier().getFinalPosition();
+   public int getFinalPosition(){
+	   	return getIdentifier().getFinalPosition();
    }
 
    public void changeAssignmentState(boolean state) {    
