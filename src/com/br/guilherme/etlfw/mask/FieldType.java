@@ -4,77 +4,77 @@ public enum FieldType {
 
    A, N, NS, AN, ANS, MM, DD, YYYY, HH, MI, SS, DATA1, DATE2, CID, HOUR, UF, ML, SL;
 
-   public static String getIndexTipoDeCampo(FieldType tp) {
+   public static String getIndexFieldType(FieldType type) {
 
-      if (tp.equals(FieldType.A)) {
+      if (type.equals(FieldType.A)) {
          return "0";
       }
 
-      if (tp.equals(FieldType.N)) {
+      if (type.equals(FieldType.N)) {
          return "1";
       }
 
-      if (tp.equals(FieldType.NS)) {
+      if (type.equals(FieldType.NS)) {
          return "2";
       }
 
-      if (tp.equals(FieldType.AN)) {
+      if (type.equals(FieldType.AN)) {
          return "3";
       }
 
-      if (tp.equals(FieldType.ANS)) {
+      if (type.equals(FieldType.ANS)) {
          return "4";
       }
 
-      if (tp.equals(FieldType.MM)) {
+      if (type.equals(FieldType.MM)) {
          return "5";
       }
 
-      if (tp.equals(FieldType.DD)) {
+      if (type.equals(FieldType.DD)) {
          return "6";
       }
 
-      if (tp.equals(FieldType.YYYY)) {
+      if (type.equals(FieldType.YYYY)) {
          return "7";
       }
 
-      if (tp.equals(FieldType.HH)) {
+      if (type.equals(FieldType.HH)) {
          return "8";
       }
 
-      if (tp.equals(FieldType.MI)) {
+      if (type.equals(FieldType.MI)) {
          return "9";
       }
 
-      if (tp.equals(FieldType.SS)) {
+      if (type.equals(FieldType.SS)) {
          return "10";
       }
 
-      if (tp.equals(FieldType.DATA1)) {
+      if (type.equals(FieldType.DATA1)) {
          return "11";
       }
 
-      if (tp.equals(FieldType.DATE2)) {
+      if (type.equals(FieldType.DATE2)) {
          return "12";
       }
 
-      if (tp.equals(FieldType.CID)) {
+      if (type.equals(FieldType.CID)) {
          return "13";
       }
 
-      if (tp.equals(FieldType.HOUR)) {
+      if (type.equals(FieldType.HOUR)) {
          return "14";
       }
 
-      if (tp.equals(FieldType.UF)) {
+      if (type.equals(FieldType.UF)) {
          return "15";
       }
 
-      if (tp.equals(FieldType.ML)) {
+      if (type.equals(FieldType.ML)) {
          return "90";
       }
 
-      if (tp.equals(FieldType.SL)) {
+      if (type.equals(FieldType.SL)) {
          return "91";
       }
 
@@ -84,7 +84,7 @@ public enum FieldType {
 
    }
 
-   public static FieldType getTipoDeCampo(int number) {
+   public static FieldType getFieldType(int number) {
       switch (number) {
          case 0:
             return FieldType.A;
@@ -127,77 +127,77 @@ public enum FieldType {
       return FieldType.A;
    }
 
-   public static String getDataBaseFieldFormat(FieldType tp) {
+   public static String getDataBaseFieldFormat(FieldType type) {
 
-      if (tp.equals(FieldType.A)) {
+      if (type.equals(FieldType.A)) {
          return "VARCHAR";
       }
 
-      if (tp.equals(FieldType.N)) {
+      if (type.equals(FieldType.N)) {
          return "DECIMAL";
       }
 
-      if (tp.equals(FieldType.NS)) {
+      if (type.equals(FieldType.NS)) {
          return "DECIMAL";
       }
 
-      if (tp.equals(FieldType.AN)) {
+      if (type.equals(FieldType.AN)) {
          return "VARCHAR";
       }
 
-      if (tp.equals(FieldType.ANS)) {
+      if (type.equals(FieldType.ANS)) {
          return "VARCHAR";
       }
 
-      if (tp.equals(FieldType.MM)) {
+      if (type.equals(FieldType.MM)) {
          return "DECIMAL";
       }
 
-      if (tp.equals(FieldType.DD)) {
+      if (type.equals(FieldType.DD)) {
          return "DECIMAL";
       }
 
-      if (tp.equals(FieldType.YYYY)) {
+      if (type.equals(FieldType.YYYY)) {
          return "DECIMAL";
       }
 
-      if (tp.equals(FieldType.HH)) {
+      if (type.equals(FieldType.HH)) {
          return "DECIMAL";
       }
 
-      if (tp.equals(FieldType.MI)) {
+      if (type.equals(FieldType.MI)) {
          return "DECIMAL";
       }
 
-      if (tp.equals(FieldType.SS)) {
+      if (type.equals(FieldType.SS)) {
          return "DECIMAL";
       }
 
-      if (tp.equals(FieldType.DATA1)) {
+      if (type.equals(FieldType.DATA1)) {
          return "VARCHAR";
       }
 
-      if (tp.equals(FieldType.DATE2)) {
+      if (type.equals(FieldType.DATE2)) {
          return "DATE";
       }
 
-      if (tp.equals(FieldType.CID)) {
+      if (type.equals(FieldType.CID)) {
          return "VARCHAR";
       }
 
-      if (tp.equals(FieldType.HOUR)) {
+      if (type.equals(FieldType.HOUR)) {
          return "TIME";
       }
 
-      if (tp.equals(FieldType.UF)) {
+      if (type.equals(FieldType.UF)) {
          return "CHAR";
       }
 
-      if (tp.equals(FieldType.ML)) {
+      if (type.equals(FieldType.ML)) {
          return "DECIMAL";
       }
 
-      if (tp.equals(FieldType.SL)) {
+      if (type.equals(FieldType.SL)) {
          return "DECIMAL";
       }
       return "VARCHAR";

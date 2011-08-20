@@ -28,8 +28,8 @@ public class ControladorDeImportacao {
 	public ControladorDeImportacao() {
 		mascaraDeArquivo = new FileMask("PROF", "1.0", "Arquivo de Professores");
 		mascaraDeRegistro = new RegistryMask("Professores", "1.0", "Professor");
-		mascaraDoNome = new FieldMask("Nome", 1, 25, 0, FieldType.A, false, false, false);
-		mascaraDoCPF = new FieldMask("CPF", 26, 39, 0, FieldType.A, false, true, false);
+		mascaraDoNome = new FieldMask("Nome", 1, 25, 0, FieldType.A, false, false);
+		mascaraDoCPF = new FieldMask("CPF", 26, 39, 0, FieldType.A, false, true);
 		pendencia = new ModificationAssignment(AssignmentType.ALTER, false);
 		mascaraDoNome.addAssignment(pendencia);
 		mascaraDeRegistro.addField(mascaraDoNome);
@@ -71,13 +71,13 @@ public class ControladorDeImportacao {
 		
 		try {
 			conector = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/estagio2", "root", "");
-			conector.createStatement().executeUpdate(registro.formataParaInsercao());
+			conector.createStatement().executeUpdate(registro.formatToInsert());
 			conector.close();
 		} catch (SQLException e) { e.printStackTrace();}
 	}
 	
 	private void criaTabela(RegistryMask registro) {
-		String tabela = registro.formataParaTabela();
+		String tabela = registro.formatToCreateTable();
 		
 		Connection conector;
 		
@@ -91,7 +91,7 @@ public class ControladorDeImportacao {
 	private void aplicaAlteracoes(RegistryMask registro) {
 		Connection conector;
 		
-		String pendencias = registro.formataParaAlteracao();
+		String pendencias = registro.formatToAlter();
 		if (pendencias.isEmpty()) {
             return;
         }
@@ -99,7 +99,7 @@ public class ControladorDeImportacao {
 		try {
 			conector = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/estagio2", "root", "");
 			conector.createStatement().executeUpdate(pendencias);
-			registro.mudaEstadoDasPendenciasDeAlteracaoPara(true);
+			registro.changeAssignmentState(true);
 			conector.close();
 		} catch (SQLException e) { e.printStackTrace();}
 	}

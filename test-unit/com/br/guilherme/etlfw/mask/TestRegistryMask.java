@@ -1,4 +1,4 @@
-package etlfw.mask;
+package com.br.guilherme.etlfw.mask;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -7,21 +7,21 @@ import org.junit.Test;
 
 import com.br.guilherme.etlfw.mask.RegistryMask;
 
-public class TestMascaraDeRegistro extends Assert {
-	RegistryMask mascara;
+public class TestRegistryMask extends Assert {
+	RegistryMask mask;
 	
 	@Before
 	public void setUp() {
-		mascara = new RegistryMask("Professores", "1.0", "Professor");
+		mask = new RegistryMask("Professores", "1.0", "Professor");
 	}
 	
 	@After
 	public void tearDown() {
-		mascara = null;
+		mask = null;
 	}
 	
 	@Test
 	public void shouldInstance() {
-		assertTrue(mascara instanceof RegistryMask);
+		assertTrue(mask instanceof RegistryMask);
 	}
 }
