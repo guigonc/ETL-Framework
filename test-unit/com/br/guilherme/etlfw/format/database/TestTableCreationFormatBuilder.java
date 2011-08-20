@@ -1,4 +1,4 @@
-package etlfw.format.database;
+package com.br.guilherme.etlfw.format.database;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -42,7 +42,7 @@ public class TestTableCreationFormatBuilder extends Assert {
 		tableCreationFormat.addTableName("Table");
 		
 		ModificationAssignment assignment = new ModificationAssignment(AssignmentType.ALTER, false);
-		FieldMask mask = new FieldMask("Field", 1, 10, 2, FieldType.A, false, true, false);
+		FieldMask mask = new FieldMask("Field", 1, 10, 2, FieldType.A, false, true);
 		mask.addAssignment(assignment);
 		tableCreationFormat.addField(mask).addField(mask).finish();
 		

@@ -1,4 +1,4 @@
-package etlfw.mask;
+package com.br.guilherme.etlfw.mask;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -47,8 +47,8 @@ public class TestFileMask extends Assert {
 	public void shouldGetRegistryMaskWithValues() {
 		String line = "Luiz Gomes               211.111.111-12";
 
-		FieldMask nameMask = new FieldMask("Nome", 1, 25, 0, FieldType.A, false, false, false);
-		FieldMask documentMask = new FieldMask("CPF", 26, 39, 0, FieldType.A, false, true, false);
+		FieldMask nameMask = new FieldMask("Nome", 1, 25, 0, FieldType.A, false, false);
+		FieldMask documentMask = new FieldMask("CPF", 26, 39, 0, FieldType.A, false, true);
 		
 		RegistryMask registryMask = new RegistryMask("Professores", "1.0", "Professor");
 

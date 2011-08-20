@@ -1,4 +1,4 @@
-package etlfw.assignment;
+package com.br.guilherme.etlfw.assignment;
 
 import org.junit.Assert;
 import org.junit.Test;

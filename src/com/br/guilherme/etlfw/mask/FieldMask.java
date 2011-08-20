@@ -8,62 +8,62 @@ import com.br.guilherme.etlfw.assignment.ModificationAssignment;
 
 public class FieldMask{
 
-    private String codigo;
-    private int posicaoInicial;
-    private int posicaoFinal;
-    private FieldType tipoDeCampo;
-    private int tamanho;
-    private int decimais;
-    private boolean contemTipoRegistro;
-    private boolean contemChavePrimaria;
-    private String valor;
-    private List<ModificationAssignment> pendencias;
+    private String code;
+    private int inicialPosition;
+    private int finalPosition;
+    private FieldType fieldType;
+    private int size;
+    private int decimals;
+    private boolean hasRegistryType;
+    private boolean isPrimaryKey;
+    private String value;
+    private List<ModificationAssignment> assignments;
 
-    public FieldMask(String codigo, int inicio, int fim, int decimais, FieldType tipoDeCampo,
-    		boolean contemTipoDeRegistro, boolean contemChavePrimaria, boolean contemNumeroDeVersao) {
-    	this.codigo = codigo.toUpperCase();
-    	this.posicaoInicial = inicio;
-    	this.posicaoFinal = fim;
-        this.tipoDeCampo = tipoDeCampo;
-        this.tamanho = fim - inicio  + 1;
-        this.decimais = decimais;
-        this.contemTipoRegistro = contemTipoDeRegistro;
-        this.contemChavePrimaria = contemChavePrimaria;
-        this.pendencias = Collections.emptyList();
+    public FieldMask(String code, int initialPosition, int finalPosition, int decimals, FieldType fieldType,
+    		boolean hasRegistryType, boolean isPrimaryKey) {
+    	this.code = code.toUpperCase();
+    	this.inicialPosition = initialPosition;
+    	this.finalPosition = finalPosition;
+        this.fieldType = fieldType;
+        this.size = finalPosition - initialPosition  + 1;
+        this.decimals = decimals;
+        this.hasRegistryType = hasRegistryType;
+        this.isPrimaryKey = isPrimaryKey;
+        this.assignments = Collections.emptyList();
     }
 
-    public String getTableName() { return codigo; }
+    public String getTableName() { return code; }
     
-    public int getPosicaoInicial() { return posicaoInicial; }
+    public int getInitialPosition() { return inicialPosition; }
     
-    public int getPosicaoFinal() { return posicaoFinal; }
+    public int getFinalPosition() { return finalPosition; }
     
-    public int getDecimalPlaces() { return decimais; }
+    public int getDecimalPlaces() { return decimals; }
     
-    public FieldType getFieldType() { return tipoDeCampo; }
+    public FieldType getFieldType() { return fieldType; }
     
-    public int size() { return tamanho; }
+    public int size() { return size; }
     
-    public boolean contemTipoRegistro() { return contemTipoRegistro; }
+    public boolean hasRegistryType() { return hasRegistryType; }
     
-    public boolean contemChavePrimaria() { return contemChavePrimaria; }
+    public boolean isPrimaryKey() { return isPrimaryKey; }
     
-    public String getValue() { return valor; }
+    public String getValue() { return value; }
     
-    public void setValor(String valor) { this.valor = valor; }
+    public void setValue(String value) { this.value = value; }
     
-    public List<ModificationAssignment> getAlterationAssignment() { return pendencias; }
+    public List<ModificationAssignment> getAlterationAssignment() { return assignments; }
     
-	public void addAssignment(final ModificationAssignment pendencia) {
-		if (pendencias.isEmpty()) {
-			pendencias = new ArrayList<ModificationAssignment>();
+	public void addAssignment(final ModificationAssignment assignment) {
+		if (assignments.isEmpty()) {
+			assignments = new ArrayList<ModificationAssignment>();
 		}
-		pendencias.add(pendencia);
+		assignments.add(assignment);
 	}
 
-	public void modificaEstadoDasPendencias(boolean novoEstado) {
-		for (ModificationAssignment pendencia : getAlterationAssignment()) {
-			pendencia.setSolved(novoEstado);
+	public void modifyAssignmentState(boolean state) {
+		for (ModificationAssignment assginment : getAlterationAssignment()) {
+			assginment.setSolved(state);
 		}
 	}
    

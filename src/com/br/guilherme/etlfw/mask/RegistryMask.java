@@ -3,7 +3,6 @@ package com.br.guilherme.etlfw.mask;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.MissingFormatWidthException;
 
 import com.br.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
 import com.br.guilherme.etlfw.format.database.AlterationFormatBuilder;
@@ -13,62 +12,67 @@ import com.br.guilherme.etlfw.format.database.TableCreationFormatBuilder;
 
 public class RegistryMask {
 
-   private String codigo;
-   private String versao;
-   private String descricao;
-   private int tamanho;
-   private List<FieldMask> campos;
-   private FieldMask identificador;
+   private String code;
+   private String version;
+   private String description;
+   private int size;
+   private List<FieldMask> fields;
+   private FieldMask identifier;
 
-   public RegistryMask(final String codigoDoRegistro, String versaoDoRegistro, final String descricaoDoRegistro) {
-      codigo       = codigoDoRegistro;
-      versao       = versaoDoRegistro;
-      descricao    = descricaoDoRegistro;
-      tamanho      = 0;
-      campos       = Collections.emptyList();
+   public RegistryMask(final String code, String version, final String description) {
+      this.code = code;
+      this.version = version;
+      this.description = description;
+      size = 0;
+      fields = Collections.emptyList();
    }
    
-   public String getTableName() { return codigo; }
-   public String getVersion() { return versao; }
-   public String getDescricao() { return descricao; }
-   public List<FieldMask> getFields() { return campos; }
-   public int getTamanho() { return tamanho; }
-   public FieldMask getIdentificador() { return identificador; }
+   public String getTableName() { return code; }
+   
+   public String getVersion() { return version; }
+   
+   public String getDescription() { return description; }
+   
+   public List<FieldMask> getFields() { return fields; }
+   
+   public int size() { return size; }
+   
+   public FieldMask getIdentifier() { return identifier; }
 
-   public void addField(final FieldMask campo) {
-      if (this.campos.isEmpty()) {
-         this.campos = new ArrayList<FieldMask>();
+   public void addField(final FieldMask field) {
+      if (this.fields.isEmpty()) {
+         this.fields = new ArrayList<FieldMask>();
       }
-      this.campos.add(campo);
+      this.fields.add(field);
 
-      atualizaTamanhoDoRegistro();
-      identificaRegistro(campo);
+      setSize();
+      identifyRegistry(field);
    }
 
-   private void identificaRegistro(final FieldMask campo) {
-      if (campo.contemTipoRegistro() == true) {
-         this.identificador = campo;
+   private void identifyRegistry(final FieldMask field) {
+      if (field.hasRegistryType() == true) {
+         this.identifier = field;
       }
    }
 
-   private void atualizaTamanhoDoRegistro() {
-      this.tamanho = 0;
-      for (FieldMask mc: campos) {
-         if (getTamanho() < mc.getPosicaoFinal()) {
-            this.tamanho = mc.getPosicaoFinal();
+   private void setSize() {
+      this.size = 0;
+      for (FieldMask mask: fields) {
+         if (size() < mask.getFinalPosition()) {
+            this.size = mask.getFinalPosition();
          }
       }
    }
    
-   public RegistryMask getRegistryWithValues(final String linhaDoArquivo) throws InvalidRegistrySizeException {
-      int tamanhoDoRegistro = getTamanho();
-      String linha = String.format("%1$-" + tamanhoDoRegistro + "s", linhaDoArquivo);
-      int tamanhoDaLinha = linha.length();
+   public RegistryMask getRegistryWithValues(final String fileLine) throws InvalidRegistrySizeException {
+      int registrySize = size();
+      String line = String.format("%1$-" + registrySize + "s", fileLine);
+      int lineSize = line.length();
       
-      if (tamanhoDaLinha == tamanhoDoRegistro) {
+      if (lineSize == registrySize) {
          try {
-            for (FieldMask mc : campos)
-            	mc.setValor(linha.substring(mc.getPosicaoInicial() - 1, mc.getPosicaoFinal()));
+            for (FieldMask mask : fields)
+            	mask.setValue(line.substring(mask.getInitialPosition() - 1, mask.getFinalPosition()));
          } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             throw new InvalidRegistrySizeException(indexOutOfBoundsException);
          }
@@ -78,63 +82,64 @@ public class RegistryMask {
       return this;
    }
 
-   public String formataParaTabela() {
-      TableCreationFormatBuilder formatoDeTabelaBuilder = new TableCreationFormatBuilder();
+   public String formatToCreateTable() {
+      TableCreationFormatBuilder tableCreationFormat = new TableCreationFormatBuilder();
 
-      formatoDeTabelaBuilder.addTableName(getTableName());
+      tableCreationFormat.addTableName(getTableName());
 
-      for (FieldMask campo : campos) {
-         formatoDeTabelaBuilder.addField(campo);
+      for (FieldMask field : fields) {
+         tableCreationFormat.addField(field);
       }
-      formatoDeTabelaBuilder.finish();
+      tableCreationFormat.finish();
 
-      return formatoDeTabelaBuilder.toString();
+      return tableCreationFormat.toString();
    }
 
-   public String formataParaInsercao() {
-      InsertionFormatBuilder formatoDeInsercaoBuilder = new InsertionFormatBuilder();
+   public String formatToInsert() {
+      InsertionFormatBuilder insertionFormat = new InsertionFormatBuilder();
 
-      formatoDeInsercaoBuilder.addTableName(getTableName());
-      for (FieldMask campo : campos) {
-         formatoDeInsercaoBuilder.addField(campo);
+      insertionFormat.addTableName(getTableName());
+      for (FieldMask field : fields) {
+         insertionFormat.addField(field);
       }
-      formatoDeInsercaoBuilder.finish();
-      return formatoDeInsercaoBuilder.toString();
+      insertionFormat.finish();
+      return insertionFormat.toString();
    }
 
-   String formataParaRemocao() {
-      DeletionFormatBuilder formatoDeRemocaoBuilder = new DeletionFormatBuilder();
+   String formatToDelete() {
+      DeletionFormatBuilder deletionformat = new DeletionFormatBuilder();
 
-      formatoDeRemocaoBuilder.addTableName(getTableName());
-      for (FieldMask campo : campos) {
-         formatoDeRemocaoBuilder.addField(campo);
+      deletionformat.addTableName(getTableName());
+      for (FieldMask field : fields) {
+         deletionformat.addField(field);
       }
-      formatoDeRemocaoBuilder.finish();
-      return formatoDeRemocaoBuilder.toString();
+      deletionformat.finish();
+      return deletionformat.toString();
    }
 
-   public String formataParaAlteracao() {
-      AlterationFormatBuilder formatoDeAlteracaoBuilder = new AlterationFormatBuilder();
+   public String formatToAlter() {
+      AlterationFormatBuilder alterationFormat = new AlterationFormatBuilder();
 
-      formatoDeAlteracaoBuilder.addTableName(getTableName());
-      for (FieldMask campo : campos) {
-          formatoDeAlteracaoBuilder.addField(campo);
+      alterationFormat.addTableName(getTableName());
+      for (FieldMask field : fields) {
+          alterationFormat.addField(field);
       }
-      formatoDeAlteracaoBuilder.finish();
-      return formatoDeAlteracaoBuilder.toString();
+      alterationFormat.finish();
+      return alterationFormat.toString();
    }
 
    public int getInitialPosition() {
-      return getIdentificador().getPosicaoInicial();
+      return getIdentifier().getInitialPosition();
    }
 
    public int getFinalPosition() {
-      return getIdentificador().getPosicaoFinal();
+      return getIdentifier().getFinalPosition();
    }
 
-   public void mudaEstadoDasPendenciasDeAlteracaoPara(boolean novoEstado) {    
-      for (FieldMask mc : campos) {
-         mc.modificaEstadoDasPendencias(novoEstado);
+   public void changeAssignmentState(boolean state) {    
+      for (FieldMask field : fields) {
+         field.modifyAssignmentState(state);
       }
    }
+   
 }

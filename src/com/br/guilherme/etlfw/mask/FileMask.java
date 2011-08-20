@@ -24,10 +24,13 @@ public class FileMask {
    }
 
    public final String getCode() { return code; }
+   
    public String getVersion() { return version; }
+   
    public final String getDescription() { return description; }
+   
    public final Map<String, RegistryMask> getRegistryMasks() { return registryMask; }
-
+   
    public final void addRegistryMask(final RegistryMask mask) {
       if (this.registryMask.isEmpty()) {
          this.registryMask = new HashMap<String, RegistryMask>();
@@ -73,4 +76,5 @@ public class FileMask {
       }
       return result.getRegistryWithValues(line);
    }
+   
 }

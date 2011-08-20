@@ -1,4 +1,4 @@
-package etlfw.format.database;
+package com.br.guilherme.etlfw.format.database;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -42,7 +42,7 @@ public class TestAlterationFormatBuilder extends Assert {
 		alterationFormat.addTableName("Table");
 		
 		ModificationAssignment assignment = new ModificationAssignment(AssignmentType.ALTER, false);
-		FieldMask mask = new FieldMask("field", 1, 10, 2, FieldType.A, false, true, false);
+		FieldMask mask = new FieldMask("field", 1, 10, 2, FieldType.A, false, true);
 		mask.addAssignment(assignment);
 		alterationFormat.addField(mask);
 		
@@ -54,7 +54,7 @@ public class TestAlterationFormatBuilder extends Assert {
 		alterationFormat.addTableName("Table");
 		
 		ModificationAssignment assignment = new ModificationAssignment(AssignmentType.ALTER, false);
-		FieldMask mask = new FieldMask("Field", 1, 10, 2, FieldType.A, false, true, false);
+		FieldMask mask = new FieldMask("Field", 1, 10, 2, FieldType.A, false, true);
 		mask.addAssignment(assignment);
 		alterationFormat.addField(mask).addField(mask).finish();
 		
@@ -65,7 +65,7 @@ public class TestAlterationFormatBuilder extends Assert {
 	public void shouldNotCreateStatementWithoutField() {
 		alterationFormat.addTableName("Table");
 		
-		FieldMask mask = new FieldMask("Field", 1, 10, 2, FieldType.A, false, true, false);
+		FieldMask mask = new FieldMask("Field", 1, 10, 2, FieldType.A, false, true);
 		alterationFormat.addField(mask).finish();
 		
 		assertEquals("", alterationFormat.toString());
