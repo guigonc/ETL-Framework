@@ -57,11 +57,7 @@ public class ControladorDeImportacao {
 				catch (InvalidRegistrySizeException e) {e.printStackTrace();}
 			}
 		} 
-		catch (FileNotFoundException e) { e.printStackTrace();} 
-		catch (IOException e) {	e.printStackTrace();}
-		catch (InstantiationException e1) { e1.printStackTrace();}
-		catch (IllegalAccessException e1) {e1.printStackTrace();}
-		catch (ClassNotFoundException e1) {e1.printStackTrace();}
+		catch (Exception e1) {e1.printStackTrace();}
 	}
 	
 	private void insereRegistro(RegistryMask registro) {
