@@ -13,23 +13,40 @@ import com.br.guilherme.etlfw.assignment.AssignmentType;
 import com.br.guilherme.etlfw.assignment.ModificationAssignment;
 import com.br.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
 import com.br.guilherme.etlfw.exceptions.UnkownRegistryException;
-import com.br.guilherme.etlfw.mask.FieldMask;
-import com.br.guilherme.etlfw.mask.FieldType;
 import com.br.guilherme.etlfw.mask.FileMask;
 import com.br.guilherme.etlfw.mask.RegistryMask;
+import com.br.guilherme.etlfw.mask.field.FieldType;
+import com.br.guilherme.etlfw.mask.field.TextFieldMask;
 
 public class ControladorDeImportacao {
-	private FileMask mascaraDeArquivo;
-	private RegistryMask mascaraDeRegistro;
-	private FieldMask mascaraDoNome;
-	private FieldMask mascaraDoCPF;
-	private ModificationAssignment pendencia;
-	
 	public ControladorDeImportacao() {
+		//execucaoTexto();
+		execucaoXML();
+	}
+	
+	private void execucaoXML() {
+		FileMask mascaraDeArquivo;
+		RegistryMask mascaraDeRegistro;
+		TextFieldMask mascaraDoNome;
+		TextFieldMask mascaraDoCPF;
+		
 		mascaraDeArquivo = new FileMask("PROF", "1.0", "Arquivo de Professores");
 		mascaraDeRegistro = new RegistryMask("Professores", "1.0", "Professor");
-		mascaraDoNome = new FieldMask("Nome", 1, 25, 0, FieldType.A, false, false);
-		mascaraDoCPF = new FieldMask("CPF", 26, 39, 0, FieldType.A, false, true);
+		mascaraDoNome = new TextFieldMask("Nome", 1, 25, 0, FieldType.A, false, false);
+		mascaraDoCPF = new TextFieldMask("CPF", 26, 39, 0, FieldType.A, false, true);
+	}
+
+	private void execucaoTexto() {
+		FileMask mascaraDeArquivo;
+		RegistryMask mascaraDeRegistro;
+		TextFieldMask mascaraDoNome;
+		TextFieldMask mascaraDoCPF;
+		ModificationAssignment pendencia;
+		
+		mascaraDeArquivo = new FileMask("PROF", "1.0", "Arquivo de Professores");
+		mascaraDeRegistro = new RegistryMask("Professores", "1.0", "Professor");
+		mascaraDoNome = new TextFieldMask("Nome", 1, 25, 0, FieldType.A, false, false);
+		mascaraDoCPF = new TextFieldMask("CPF", 26, 39, 0, FieldType.A, false, true);
 		pendencia = new ModificationAssignment(AssignmentType.ALTER, false);
 		mascaraDoNome.addAssignment(pendencia);
 		mascaraDeRegistro.addField(mascaraDoNome);

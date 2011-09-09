@@ -2,7 +2,7 @@ package com.br.guilherme.etlfw.format.database;
 
 import com.br.guilherme.etlfw.assignment.ModificationAssignment;
 import com.br.guilherme.etlfw.assignment.AssignmentType;
-import com.br.guilherme.etlfw.mask.FieldMask;
+import com.br.guilherme.etlfw.mask.field.TextFieldMask;
 
 public class AlterationFormatBuilder extends DataBaseFormat {
 
@@ -20,7 +20,7 @@ public class AlterationFormatBuilder extends DataBaseFormat {
 		return this;
 	}
 
-	public AlterationFormatBuilder addField(FieldMask mask) {
+	public AlterationFormatBuilder addField(TextFieldMask mask) {
 		String formattedAssignment;
 		formattedAssignment = formatAssignment(mask);
 		if (!formattedAssignment.isEmpty()) {
@@ -29,7 +29,7 @@ public class AlterationFormatBuilder extends DataBaseFormat {
 		return this;
 	}
 
-	private String formatAssignment(FieldMask field) {
+	private String formatAssignment(TextFieldMask field) {
 		StringBuilder result = new StringBuilder();
 
 		for (ModificationAssignment assignment : field.getAlterationAssignment()) {

@@ -1,7 +1,7 @@
 package com.br.guilherme.etlfw.format.database;
 
-import com.br.guilherme.etlfw.mask.FieldMask;
-import com.br.guilherme.etlfw.mask.FieldType;
+import com.br.guilherme.etlfw.mask.field.FieldType;
+import com.br.guilherme.etlfw.mask.field.TextFieldMask;
 
 public abstract class DataBaseFormat {
 
@@ -25,10 +25,10 @@ public abstract class DataBaseFormat {
 
    }
 
-   protected final String formatField(FieldMask mask) {
+   protected final String formatField(TextFieldMask mask) {
       StringBuilder result = new StringBuilder();
 
-      result.append(mask.getTableName())
+      result.append(mask.getFieldName())
               .append(space())
               .append(FieldType.getDataBaseFieldFormat(mask.getFieldType()));
 
@@ -49,7 +49,7 @@ public abstract class DataBaseFormat {
       return result.toString();
    }
 
-   protected final String formatValue(FieldMask mask) {
+   protected final String formatValue(TextFieldMask mask) {
       StringBuilder result = new StringBuilder();
       switch (mask.getFieldType()) {
          case N:
@@ -86,10 +86,10 @@ public abstract class DataBaseFormat {
       return result.toString();
    }
 
-   protected final String formatCondition(FieldMask mask, String operator) {
+   protected final String formatCondition(TextFieldMask mask, String operator) {
       StringBuilder resultado = new StringBuilder();
 
-      resultado.append(mask.getTableName())
+      resultado.append(mask.getFieldName())
                .append(operator)
                .append(formatValue(mask));
 

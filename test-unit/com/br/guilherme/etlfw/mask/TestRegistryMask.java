@@ -8,6 +8,8 @@ import org.junit.Test;
 import com.br.guilherme.etlfw.assignment.AssignmentType;
 import com.br.guilherme.etlfw.assignment.ModificationAssignment;
 import com.br.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
+import com.br.guilherme.etlfw.mask.field.FieldType;
+import com.br.guilherme.etlfw.mask.field.TextFieldMask;
 
 public class TestRegistryMask extends Assert {
 	RegistryMask registry;
@@ -34,13 +36,13 @@ public class TestRegistryMask extends Assert {
 	@Test
 	public void shouldAddField() {
 		assertTrue(registry.getFields().isEmpty());
-		registry.addField(new FieldMask("Field", 1, 10, 2, FieldType.A, false, true));
+		registry.addField(new TextFieldMask("Field", 1, 10, 2, FieldType.A, false, true));
 		assertFalse(registry.getFields().isEmpty());
 	}
 	
 	@Test
 	public void shouldGetRegistryWithValues() {
-		registry.addField(new FieldMask("Field", 1, 10, 2, FieldType.A, false, true));
+		registry.addField(new TextFieldMask("Field", 1, 10, 2, FieldType.A, false, true));
 		try {
 			assertEquals("Field     ", registry.getRegistryWithValues("Field     ").getFields().get(0).getValue());
 		} catch (InvalidRegistrySizeException e) {};
@@ -48,7 +50,7 @@ public class TestRegistryMask extends Assert {
 	
 	@Test
 	public void shouldGenerateTheSQLStatements() {
-		FieldMask field = new FieldMask("Field", 1, 10, 2, FieldType.A, false, true);
+		TextFieldMask field = new TextFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
 		field.addAssignment(new ModificationAssignment(AssignmentType.ALTER, false));
 		registry.addField(field);
 		
@@ -60,7 +62,7 @@ public class TestRegistryMask extends Assert {
 	
 	@Test
 	public void shouldSetIdentifierPositions() {
-		registry.addField(new FieldMask("Field", 1, 10, 2, FieldType.A, true, true));
+		registry.addField(new TextFieldMask("Field", 1, 10, 2, FieldType.A, true, true));
 
 		assertEquals(1, registry.getInitialPosition());
 		assertEquals(10, registry.getFinalPosition());
@@ -68,7 +70,7 @@ public class TestRegistryMask extends Assert {
 	
 	@Test
 	public void shouldChangeTheAssignmentStatement() {
-		FieldMask field = new FieldMask("Field", 1, 10, 2, FieldType.A, false, true);
+		TextFieldMask field = new TextFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
 		ModificationAssignment assignment = new ModificationAssignment(AssignmentType.ALTER, false);
 		
 		field.addAssignment(assignment);

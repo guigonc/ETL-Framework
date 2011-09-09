@@ -1,6 +1,6 @@
 package com.br.guilherme.etlfw.format.database;
 
-import com.br.guilherme.etlfw.mask.FieldMask;
+import com.br.guilherme.etlfw.mask.field.TextFieldMask;
 
 public class DeletionFormatBuilder extends DataBaseFormat {
 
@@ -20,7 +20,7 @@ public class DeletionFormatBuilder extends DataBaseFormat {
 		return this;
 	}
 
-	public DeletionFormatBuilder addField(FieldMask mask) {
+	public DeletionFormatBuilder addField(TextFieldMask mask) {
 		if (hasField) {
 			this.mainClause.append(space()).append("AND").append(space());
 		}
@@ -30,7 +30,11 @@ public class DeletionFormatBuilder extends DataBaseFormat {
 	}
 
 	public DeletionFormatBuilder finish() {
-		this.mainClause.append(";");
+		if (hasField) {
+			this.mainClause.append(";");
+		} else {
+			this.mainClause = new StringBuilder();
+		}
 		return this;
 	}
 	

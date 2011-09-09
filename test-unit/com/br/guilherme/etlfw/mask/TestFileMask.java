@@ -7,10 +7,10 @@ import org.junit.Test;
 
 import com.br.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
 import com.br.guilherme.etlfw.exceptions.UnkownRegistryException;
-import com.br.guilherme.etlfw.mask.FieldMask;
-import com.br.guilherme.etlfw.mask.FieldType;
 import com.br.guilherme.etlfw.mask.FileMask;
 import com.br.guilherme.etlfw.mask.RegistryMask;
+import com.br.guilherme.etlfw.mask.field.FieldType;
+import com.br.guilherme.etlfw.mask.field.TextFieldMask;
 
 public class TestFileMask extends Assert {
 	FileMask file;
@@ -47,8 +47,8 @@ public class TestFileMask extends Assert {
 	public void shouldGetRegistryMaskWithValues() {
 		String line = "Luiz Gomes               211.111.111-12";
 
-		FieldMask nameMask = new FieldMask("Nome", 1, 25, 0, FieldType.A, false, false);
-		FieldMask documentMask = new FieldMask("CPF", 26, 39, 0, FieldType.A, false, true);
+		TextFieldMask nameMask = new TextFieldMask("Nome", 1, 25, 0, FieldType.A, false, false);
+		TextFieldMask documentMask = new TextFieldMask("CPF", 26, 39, 0, FieldType.A, false, true);
 		
 		RegistryMask registryMask = new RegistryMask("Professores", "1.0", "Professor");
 

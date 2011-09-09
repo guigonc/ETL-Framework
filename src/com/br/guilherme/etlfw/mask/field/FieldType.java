@@ -1,4 +1,4 @@
-package com.br.guilherme.etlfw.mask;
+package com.br.guilherme.etlfw.mask.field;
 
 public enum FieldType {
 

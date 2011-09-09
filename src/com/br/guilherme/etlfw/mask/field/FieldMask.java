@@ -1,4 +1,4 @@
-package com.br.guilherme.etlfw.mask;
+package com.br.guilherme.etlfw.mask.field;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -6,11 +6,9 @@ import java.util.List;
 
 import com.br.guilherme.etlfw.assignment.ModificationAssignment;
 
-public class FieldMask{
+abstract public class FieldMask {
 
-    private String code;
-    private int inicialPosition;
-    private int finalPosition;
+    private String fieldName;
     private FieldType fieldType;
     private int size;
     private int decimals;
@@ -19,24 +17,18 @@ public class FieldMask{
     private String value;
     private List<ModificationAssignment> assignments;
 
-    public FieldMask(String code, int initialPosition, int finalPosition, int decimals, FieldType fieldType,
-    		boolean hasRegistryType, boolean isPrimaryKey) {
-    	this.code = code.toUpperCase();
-    	this.inicialPosition = initialPosition;
-    	this.finalPosition = finalPosition;
-        this.fieldType = fieldType;
-        this.size = finalPosition - initialPosition  + 1;
-        this.decimals = decimals;
-        this.hasRegistryType = hasRegistryType;
-        this.isPrimaryKey = isPrimaryKey;
-        this.assignments = Collections.emptyList();
-    }
+	public FieldMask(String fieldName, int size, int decimals,
+			FieldType fieldType, boolean hasRegistryType, boolean isPrimaryKey) {
+		this.fieldName = fieldName.toUpperCase();
+		this.fieldType = fieldType;
+		this.size = size;
+		this.decimals = decimals;
+		this.hasRegistryType = hasRegistryType;
+		this.isPrimaryKey = isPrimaryKey;
+		this.assignments = Collections.emptyList();
+	}
 
-    public String getTableName() { return code; }
-    
-    public int getInitialPosition() { return inicialPosition; }
-    
-    public int getFinalPosition() { return finalPosition; }
+    public String getFieldName() { return fieldName; }
     
     public int getDecimalPlaces() { return decimals; }
     
@@ -66,5 +58,5 @@ public class FieldMask{
 			assginment.setSolved(state);
 		}
 	}
-   
+
 }

@@ -9,6 +9,7 @@ import com.br.guilherme.etlfw.format.database.AlterationFormatBuilder;
 import com.br.guilherme.etlfw.format.database.DeletionFormatBuilder;
 import com.br.guilherme.etlfw.format.database.InsertionFormatBuilder;
 import com.br.guilherme.etlfw.format.database.TableCreationFormatBuilder;
+import com.br.guilherme.etlfw.mask.field.TextFieldMask;
 
 public class RegistryMask {
 
@@ -16,8 +17,8 @@ public class RegistryMask {
    private String version;
    private String description;
    private int size;
-   private List<FieldMask> fields;
-   private FieldMask identifier;
+   private List<TextFieldMask> fields;
+   private TextFieldMask identifier;
 
    public RegistryMask(final String tableName, String version, final String description) {
       this.tableName = tableName;
@@ -33,15 +34,15 @@ public class RegistryMask {
    
    public String getDescription() { return description; }
    
-   public List<FieldMask> getFields() { return fields; }
+   public List<TextFieldMask> getFields() { return fields; }
    
    public int size() { return size; }
    
-   public FieldMask getIdentifier() { return identifier; }
+   public TextFieldMask getIdentifier() { return identifier; }
 
-   public void addField(final FieldMask field) {
+   public void addField(final TextFieldMask field) {
       if (this.fields.isEmpty()) {
-         this.fields = new ArrayList<FieldMask>();
+         this.fields = new ArrayList<TextFieldMask>();
       }
       this.fields.add(field);
 
@@ -49,7 +50,7 @@ public class RegistryMask {
       identifyRegistry(field);
    }
 
-   private void identifyRegistry(final FieldMask field) {
+   private void identifyRegistry(final TextFieldMask field) {
       if (field.hasRegistryType() == true) {
          this.identifier = field;
       }
@@ -57,7 +58,7 @@ public class RegistryMask {
 
    private void setSize() {
       this.size = 0;
-      for (FieldMask mask: fields) {
+      for (TextFieldMask mask: fields) {
          if (size() < mask.getFinalPosition()) {
             this.size = mask.getFinalPosition();
          }
@@ -71,7 +72,7 @@ public class RegistryMask {
       
       if (lineSize == registrySize) {
          try {
-            for (FieldMask mask : fields)
+            for (TextFieldMask mask : fields)
             	mask.setValue(line.substring(mask.getInitialPosition() - 1, mask.getFinalPosition()));
          } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             throw new InvalidRegistrySizeException(indexOutOfBoundsException);
@@ -87,7 +88,7 @@ public class RegistryMask {
 
       tableCreationFormat.addTableName(getTableName());
 
-      for (FieldMask field : fields) {
+      for (TextFieldMask field : fields) {
          tableCreationFormat.addField(field);
       }
       tableCreationFormat.finish();
@@ -99,7 +100,7 @@ public class RegistryMask {
       InsertionFormatBuilder insertionFormat = new InsertionFormatBuilder();
 
       insertionFormat.addTableName(getTableName());
-      for (FieldMask field : fields) {
+      for (TextFieldMask field : fields) {
          insertionFormat.addField(field);
       }
       insertionFormat.finish();
@@ -110,7 +111,7 @@ public class RegistryMask {
       DeletionFormatBuilder deletionformat = new DeletionFormatBuilder();
 
       deletionformat.addTableName(getTableName());
-      for (FieldMask field : fields) {
+      for (TextFieldMask field : fields) {
          deletionformat.addField(field);
       }
       deletionformat.finish();
@@ -121,7 +122,7 @@ public class RegistryMask {
       AlterationFormatBuilder alterationFormat = new AlterationFormatBuilder();
 
       alterationFormat.addTableName(getTableName());
-      for (FieldMask field : fields) {
+      for (TextFieldMask field : fields) {
           alterationFormat.addField(field);
       }
       alterationFormat.finish();
@@ -137,7 +138,7 @@ public class RegistryMask {
    }
 
    public void changeAssignmentState(boolean state) {    
-      for (FieldMask field : fields) {
+      for (TextFieldMask field : fields) {
          field.modifyAssignmentState(state);
       }
    }

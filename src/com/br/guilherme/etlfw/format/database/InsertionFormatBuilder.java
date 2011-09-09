@@ -1,6 +1,6 @@
 package com.br.guilherme.etlfw.format.database;
 
-import com.br.guilherme.etlfw.mask.FieldMask;
+import com.br.guilherme.etlfw.mask.field.TextFieldMask;
 
 public class InsertionFormatBuilder extends DataBaseFormat{
    
@@ -19,14 +19,14 @@ public class InsertionFormatBuilder extends DataBaseFormat{
       }
       return this;
    }
-   public InsertionFormatBuilder addField (FieldMask field) {
+   public InsertionFormatBuilder addField (TextFieldMask field) {
       if (hasField) {
          this.mainClause.append(comma());
          this.complementaryClause.append(comma());
       } else {
          this.hasField = true;
       }
-      this.mainClause.append(field.getTableName());
+      this.mainClause.append(field.getFieldName());
       this.complementaryClause.append(this.formatValue(field));
       return this;
    }

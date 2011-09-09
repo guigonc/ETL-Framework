@@ -1,6 +1,6 @@
 package com.br.guilherme.etlfw.format.database;
 
-import com.br.guilherme.etlfw.mask.FieldMask;
+import com.br.guilherme.etlfw.mask.field.TextFieldMask;
 
 public class TableCreationFormatBuilder extends DataBaseFormat {
 	
@@ -19,7 +19,7 @@ public class TableCreationFormatBuilder extends DataBaseFormat {
 		return this;
 	}
 
-	public TableCreationFormatBuilder addField(FieldMask mask) {
+	public TableCreationFormatBuilder addField(TextFieldMask mask) {
 		if (hasField) {
 			this.mainClause.append(comma());
 		} else {
