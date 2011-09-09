@@ -1,4 +1,4 @@
-package com.br.guilherme.etlfw.mask;
+package com.br.guilherme.etlfw.mask.registry;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -10,13 +10,14 @@ import com.br.guilherme.etlfw.assignment.ModificationAssignment;
 import com.br.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
 import com.br.guilherme.etlfw.mask.field.FieldType;
 import com.br.guilherme.etlfw.mask.field.TextFieldMask;
+import com.br.guilherme.etlfw.mask.registry.TextRegistryMask;
 
-public class TestRegistryMask extends Assert {
-	RegistryMask registry;
+public class TestTextRegistryMask extends Assert {
+	TextRegistryMask registry;
 	
 	@Before
 	public void setUp() {
-		registry = new RegistryMask("Professores", "1.0", "Professor");
+		registry = new TextRegistryMask("Professores", "1.0", "Professor");
 	}
 	
 	@After
@@ -26,7 +27,7 @@ public class TestRegistryMask extends Assert {
 	
 	@Test
 	public void shouldInstance() {
-		assertTrue(registry instanceof RegistryMask);
+		assertTrue(registry instanceof TextRegistryMask);
 		assertEquals("Professores", registry.getTableName());
 		assertEquals("1.0", registry.getVersion());
 		assertEquals("Professor", registry.getDescription());

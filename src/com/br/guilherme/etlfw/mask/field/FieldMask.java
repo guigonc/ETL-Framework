@@ -6,35 +6,33 @@ import java.util.List;
 
 import com.br.guilherme.etlfw.assignment.ModificationAssignment;
 
-abstract public class FieldMask {
+public abstract class FieldMask {
 
     private String fieldName;
     private FieldType fieldType;
-    private int size;
     private int decimals;
     private boolean hasRegistryType;
     private boolean isPrimaryKey;
     private String value;
     private List<ModificationAssignment> assignments;
 
-	public FieldMask(String fieldName, int size, int decimals,
+	public FieldMask(String fieldName, int decimals,
 			FieldType fieldType, boolean hasRegistryType, boolean isPrimaryKey) {
 		this.fieldName = fieldName.toUpperCase();
 		this.fieldType = fieldType;
-		this.size = size;
 		this.decimals = decimals;
 		this.hasRegistryType = hasRegistryType;
 		this.isPrimaryKey = isPrimaryKey;
 		this.assignments = Collections.emptyList();
 	}
 
-    public String getFieldName() { return fieldName; }
+	public abstract int size();
+
+	public String getFieldName() { return fieldName; }
     
     public int getDecimalPlaces() { return decimals; }
     
     public FieldType getFieldType() { return fieldType; }
-    
-    public int size() { return size; }
     
     public boolean hasRegistryType() { return hasRegistryType; }
     

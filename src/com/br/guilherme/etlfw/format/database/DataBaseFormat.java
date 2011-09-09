@@ -1,5 +1,6 @@
 package com.br.guilherme.etlfw.format.database;
 
+import com.br.guilherme.etlfw.mask.field.FieldMask;
 import com.br.guilherme.etlfw.mask.field.FieldType;
 import com.br.guilherme.etlfw.mask.field.TextFieldMask;
 
@@ -25,36 +26,36 @@ public abstract class DataBaseFormat {
 
    }
 
-   protected final String formatField(TextFieldMask mask) {
+   protected final String formatField(FieldMask field) {
       StringBuilder result = new StringBuilder();
 
-      result.append(mask.getFieldName())
+      result.append(field.getFieldName())
               .append(space())
-              .append(FieldType.getDataBaseFieldFormat(mask.getFieldType()));
+              .append(FieldType.getDataBaseFieldFormat(field.getFieldType()));
 
-      if (mask.getDecimalPlaces() > 0) {
+      if (field.getDecimalPlaces() > 0) {
          result.append(open())
-                 .append(mask.size() + mask.getDecimalPlaces())
-                 .append(comma()).append(mask.getDecimalPlaces())
+                 .append(field.size() + field.getDecimalPlaces())
+                 .append(comma()).append(field.getDecimalPlaces())
                  .append(close());
       } else {
-         switch (mask.getFieldType()) {
+         switch (field.getFieldType()) {
             case DATE2:
             case HOUR:
                break;
             default:
-               result.append(open()).append(mask.size()).append(close());
+               result.append(open()).append(field.size()).append(close());
          }
       }
       return result.toString();
    }
 
-   protected final String formatValue(TextFieldMask mask) {
+   protected final String formatValue(FieldMask field) {
       StringBuilder result = new StringBuilder();
-      switch (mask.getFieldType()) {
+      switch (field.getFieldType()) {
          case N:
          case NS:
-            result.append(formatDecimalValue(mask.getValue(), mask.getDecimalPlaces()));
+            result.append(formatDecimalValue(field.getValue(), field.getDecimalPlaces()));
             break;
          case MM:
          case DD:
@@ -64,10 +65,10 @@ public abstract class DataBaseFormat {
          case SS:
          case ML:
          case SL:
-            result.append(mask.getValue());
+            result.append(field.getValue());
             break;
          default:
-            result.append("\"").append(mask.getValue()).append("\"");
+            result.append("\"").append(field.getValue()).append("\"");
       }
 
       return result.toString();
@@ -86,7 +87,7 @@ public abstract class DataBaseFormat {
       return result.toString();
    }
 
-   protected final String formatCondition(TextFieldMask mask, String operator) {
+   protected final String formatCondition(FieldMask mask, String operator) {
       StringBuilder resultado = new StringBuilder();
 
       resultado.append(mask.getFieldName())

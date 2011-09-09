@@ -1,4 +1,4 @@
-package com.br.guilherme.etlfw.mask;
+package com.br.guilherme.etlfw.mask.file;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -7,10 +7,10 @@ import org.junit.Test;
 
 import com.br.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
 import com.br.guilherme.etlfw.exceptions.UnkownRegistryException;
-import com.br.guilherme.etlfw.mask.FileMask;
-import com.br.guilherme.etlfw.mask.RegistryMask;
 import com.br.guilherme.etlfw.mask.field.FieldType;
 import com.br.guilherme.etlfw.mask.field.TextFieldMask;
+import com.br.guilherme.etlfw.mask.file.FileMask;
+import com.br.guilherme.etlfw.mask.registry.TextRegistryMask;
 
 public class TestFileMask extends Assert {
 	FileMask file;
@@ -36,7 +36,7 @@ public class TestFileMask extends Assert {
 	
 	@Test
 	public void shouldAddRegistryMask() {
-		RegistryMask registryMask = new RegistryMask("Professores", "1.0", "Professor");
+		TextRegistryMask registryMask = new TextRegistryMask("Professores", "1.0", "Professor");
 
 		assertTrue(file.getRegistryMasks().isEmpty());
 		file.addRegistryMask(registryMask);
@@ -50,14 +50,14 @@ public class TestFileMask extends Assert {
 		TextFieldMask nameMask = new TextFieldMask("Nome", 1, 25, 0, FieldType.A, false, false);
 		TextFieldMask documentMask = new TextFieldMask("CPF", 26, 39, 0, FieldType.A, false, true);
 		
-		RegistryMask registryMask = new RegistryMask("Professores", "1.0", "Professor");
+		TextRegistryMask registryMask = new TextRegistryMask("Professores", "1.0", "Professor");
 
 		registryMask.addField(nameMask);
 		registryMask.addField(documentMask);
 		file.addRegistryMask(registryMask);
 		
 		try {
-			RegistryMask registry = file.getRegistryWithValues(line);
+			TextRegistryMask registry = file.getRegistryWithValues(line);
 			assertEquals("Luiz Gomes               ", registry.getFields().get(0).getValue());
 			assertEquals("211.111.111-12", registry.getFields().get(1).getValue());
 		} 

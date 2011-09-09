@@ -1,4 +1,4 @@
-package com.br.guilherme.etlfw.mask;
+package com.br.guilherme.etlfw.mask.registry;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,19 +9,21 @@ import com.br.guilherme.etlfw.format.database.AlterationFormatBuilder;
 import com.br.guilherme.etlfw.format.database.DeletionFormatBuilder;
 import com.br.guilherme.etlfw.format.database.InsertionFormatBuilder;
 import com.br.guilherme.etlfw.format.database.TableCreationFormatBuilder;
-import com.br.guilherme.etlfw.mask.field.TextFieldMask;
+import com.br.guilherme.etlfw.mask.field.XMLFieldMask;
 
-public class RegistryMask {
+public class XMLRegistryMask {
 
    private String tableName;
+   private String tagName; 
    private String version;
    private String description;
    private int size;
-   private List<TextFieldMask> fields;
-   private TextFieldMask identifier;
+   private List<XMLFieldMask> fields;
+   private XMLFieldMask identifier;
 
-   public RegistryMask(final String tableName, String version, final String description) {
+   public XMLRegistryMask(String tableName, String tagName, String version, String description) {
       this.tableName = tableName;
+      this.tagName = tagName;
       this.version = version;
       this.description = description;
       size = 0;
@@ -30,19 +32,21 @@ public class RegistryMask {
    
    public String getTableName() { return tableName; }
    
+   public String getTagName() { return tagName; }
+   
    public String getVersion() { return version; }
    
    public String getDescription() { return description; }
    
-   public List<TextFieldMask> getFields() { return fields; }
+   public List<XMLFieldMask> getFields() { return fields; }
    
    public int size() { return size; }
    
-   public TextFieldMask getIdentifier() { return identifier; }
+   public XMLFieldMask getIdentifier() { return identifier; }
 
-   public void addField(final TextFieldMask field) {
+   public void addField(final XMLFieldMask field) {
       if (this.fields.isEmpty()) {
-         this.fields = new ArrayList<TextFieldMask>();
+         this.fields = new ArrayList<XMLFieldMask>();
       }
       this.fields.add(field);
 
@@ -50,7 +54,7 @@ public class RegistryMask {
       identifyRegistry(field);
    }
 
-   private void identifyRegistry(final TextFieldMask field) {
+   private void identifyRegistry(final XMLFieldMask field) {
       if (field.hasRegistryType() == true) {
          this.identifier = field;
       }
@@ -58,21 +62,19 @@ public class RegistryMask {
 
    private void setSize() {
       this.size = 0;
-      for (TextFieldMask mask: fields) {
-         if (size() < mask.getFinalPosition()) {
-            this.size = mask.getFinalPosition();
+      for (XMLFieldMask mask: fields) {
+            this.size += mask.size();
          }
       }
-   }
    
-   public RegistryMask getRegistryWithValues(final String fileLine) throws InvalidRegistrySizeException {
+   /*public XMLRegistryMask getRegistryWithValues(final NodeList fileElement) throws InvalidRegistrySizeException {
       int registrySize = size();
-      String line = String.format("%1$-" + registrySize + "s", fileLine);
+      String line = String.format("%1$-" + registrySize + "s", fileElement);
       int lineSize = line.length();
       
       if (lineSize == registrySize) {
          try {
-            for (TextFieldMask mask : fields)
+            for (XMLFieldMask mask : fields)
             	mask.setValue(line.substring(mask.getInitialPosition() - 1, mask.getFinalPosition()));
          } catch (IndexOutOfBoundsException indexOutOfBoundsException) {
             throw new InvalidRegistrySizeException(indexOutOfBoundsException);
@@ -81,14 +83,14 @@ public class RegistryMask {
             throw new InvalidRegistrySizeException();
       }
       return this;
-   }
+   }*/
 
    public String formatToCreateTable() {
       TableCreationFormatBuilder tableCreationFormat = new TableCreationFormatBuilder();
 
       tableCreationFormat.addTableName(getTableName());
 
-      for (TextFieldMask field : fields) {
+      for (XMLFieldMask field : fields) {
          tableCreationFormat.addField(field);
       }
       tableCreationFormat.finish();
@@ -100,7 +102,7 @@ public class RegistryMask {
       InsertionFormatBuilder insertionFormat = new InsertionFormatBuilder();
 
       insertionFormat.addTableName(getTableName());
-      for (TextFieldMask field : fields) {
+      for (XMLFieldMask field : fields) {
          insertionFormat.addField(field);
       }
       insertionFormat.finish();
@@ -111,7 +113,7 @@ public class RegistryMask {
       DeletionFormatBuilder deletionformat = new DeletionFormatBuilder();
 
       deletionformat.addTableName(getTableName());
-      for (TextFieldMask field : fields) {
+      for (XMLFieldMask field : fields) {
          deletionformat.addField(field);
       }
       deletionformat.finish();
@@ -122,23 +124,15 @@ public class RegistryMask {
       AlterationFormatBuilder alterationFormat = new AlterationFormatBuilder();
 
       alterationFormat.addTableName(getTableName());
-      for (TextFieldMask field : fields) {
+      for (XMLFieldMask field : fields) {
           alterationFormat.addField(field);
       }
       alterationFormat.finish();
       return alterationFormat.toString();
    }
 
-   public int getInitialPosition() {
-      return getIdentifier().getInitialPosition();
-   }
-
-   public int getFinalPosition(){
-	   	return getIdentifier().getFinalPosition();
-   }
-
    public void changeAssignmentState(boolean state) {    
-      for (TextFieldMask field : fields) {
+      for (XMLFieldMask field : fields) {
          field.modifyAssignmentState(state);
       }
    }

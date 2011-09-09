@@ -1,8 +1,8 @@
 package com.br.guilherme.etlfw.format.database;
 
-import com.br.guilherme.etlfw.assignment.ModificationAssignment;
 import com.br.guilherme.etlfw.assignment.AssignmentType;
-import com.br.guilherme.etlfw.mask.field.TextFieldMask;
+import com.br.guilherme.etlfw.assignment.ModificationAssignment;
+import com.br.guilherme.etlfw.mask.field.FieldMask;
 
 public class AlterationFormatBuilder extends DataBaseFormat {
 
@@ -20,16 +20,16 @@ public class AlterationFormatBuilder extends DataBaseFormat {
 		return this;
 	}
 
-	public AlterationFormatBuilder addField(TextFieldMask mask) {
+	public AlterationFormatBuilder addField(FieldMask field) {
 		String formattedAssignment;
-		formattedAssignment = formatAssignment(mask);
+		formattedAssignment = formatAssignment(field);
 		if (!formattedAssignment.isEmpty()) {
 			this.mainClause.append(formattedAssignment);
 		}
 		return this;
 	}
 
-	private String formatAssignment(TextFieldMask field) {
+	private String formatAssignment(FieldMask field) {
 		StringBuilder result = new StringBuilder();
 
 		for (ModificationAssignment assignment : field.getAlterationAssignment()) {

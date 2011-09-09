@@ -1,4 +1,4 @@
-package com.br.guilherme.etlfw.mask;
+package com.br.guilherme.etlfw.mask.file;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,13 +8,14 @@ import java.util.Set;
 
 import com.br.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
 import com.br.guilherme.etlfw.exceptions.UnkownRegistryException;
+import com.br.guilherme.etlfw.mask.registry.TextRegistryMask;
 
 public class FileMask {
 
    private String code;
    private String version;
    private String description;
-   private Map<String, RegistryMask> registryMask;
+   private Map<String, TextRegistryMask> registryMask;
 
    public FileMask(String fileCode, String fileVersion, String fileDescription) {
       code = fileCode.toUpperCase(Locale.getDefault());
@@ -29,18 +30,18 @@ public class FileMask {
    
    public final String getDescription() { return description; }
    
-   public final Map<String, RegistryMask> getRegistryMasks() { return registryMask; }
+   public final Map<String, TextRegistryMask> getRegistryMasks() { return registryMask; }
    
-   public final void addRegistryMask(final RegistryMask mask) {
+   public final void addRegistryMask(final TextRegistryMask mask) {
       if (this.registryMask.isEmpty()) {
-         this.registryMask = new HashMap<String, RegistryMask>();
+         this.registryMask = new HashMap<String, TextRegistryMask>();
       }
       this.registryMask.put(mask.getTableName() + mask.getVersion(), mask);
    }
 
-   private RegistryMask getRegistry(final String line, final Set<String> keys) {
-      RegistryMask result = null;
-      RegistryMask registry;
+   private TextRegistryMask getRegistry(final String line, final Set<String> keys) {
+      TextRegistryMask result = null;
+      TextRegistryMask registry;
       String type;
       int size, start, end;
 
@@ -64,9 +65,9 @@ public class FileMask {
       return result;
    }
 
-   public final RegistryMask getRegistryWithValues(final String line) throws UnkownRegistryException, InvalidRegistrySizeException {
+   public final TextRegistryMask getRegistryWithValues(final String line) throws UnkownRegistryException, InvalidRegistrySizeException {
       Set<String> keys;
-      RegistryMask result;
+      TextRegistryMask result;
 
       keys = registryMask.keySet();
 
