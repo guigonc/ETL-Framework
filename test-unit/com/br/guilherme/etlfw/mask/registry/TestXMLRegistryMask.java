@@ -9,6 +9,7 @@ import com.br.guilherme.etlfw.assignment.AssignmentType;
 import com.br.guilherme.etlfw.assignment.ModificationAssignment;
 import com.br.guilherme.etlfw.mask.field.FieldType;
 import com.br.guilherme.etlfw.mask.field.XMLFieldMask;
+import com.br.guilherme.etlfw.xml.reader.XMLReader;
 
 public class TestXMLRegistryMask extends Assert {
 	XMLRegistryMask registry;
@@ -42,7 +43,9 @@ public class TestXMLRegistryMask extends Assert {
 	
 	/*@Test
 	public void shouldGetRegistryWithValues() {
-		registry.addField(new TextFieldMask("Field", 1, 10, 2, FieldType.A, false, true));
+		XMLReader reader = new XMLReader("/home/guilherme/workspace/ETL-Framework/entrada.xml");
+		registry.addField(new XMLFieldMask("Nome", "Nome", 10, 2, FieldType.A, false, true));
+		System.out.println(reader.getValueForKey(registry.getTagName(), "Nome", 0));
 		try {
 			assertEquals("Field     ", registry.getRegistryWithValues("Field     ").getFields().get(0).getValue());
 		} catch (InvalidRegistrySizeException e) {};

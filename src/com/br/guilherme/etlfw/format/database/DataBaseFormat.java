@@ -2,7 +2,6 @@ package com.br.guilherme.etlfw.format.database;
 
 import com.br.guilherme.etlfw.mask.field.FieldMask;
 import com.br.guilherme.etlfw.mask.field.FieldType;
-import com.br.guilherme.etlfw.mask.field.TextFieldMask;
 
 public abstract class DataBaseFormat {
 

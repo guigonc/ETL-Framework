@@ -20,8 +20,7 @@ public class XMLReader {
 		try {
 			DocumentBuilderFactory documentFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder documentBuilder = documentFactory.newDocumentBuilder();
-			document = documentBuilder.parse (new File(fileName));
-			document.getDocumentElement ().normalize ();
+			document = documentBuilder.parse(new File(fileName));
 		} 
 		catch (SAXException e) {e.printStackTrace();}
 		catch (IOException e) {e.printStackTrace();} 
@@ -47,6 +46,10 @@ public class XMLReader {
 
         NodeList textFNList = firstNameElement.getChildNodes();
         return ((Node)textFNList.item(0)).getNodeValue().trim();
+	}
+
+	public NodeList getElementList() {
+		return document.getChildNodes().item(0).getChildNodes();
 	}
 
 }

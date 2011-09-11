@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.br.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
 import com.br.guilherme.etlfw.format.database.AlterationFormatBuilder;
 import com.br.guilherme.etlfw.format.database.DeletionFormatBuilder;
 import com.br.guilherme.etlfw.format.database.InsertionFormatBuilder;

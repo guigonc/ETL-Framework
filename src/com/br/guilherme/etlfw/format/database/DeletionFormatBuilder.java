@@ -1,7 +1,6 @@
 package com.br.guilherme.etlfw.format.database;
 
 import com.br.guilherme.etlfw.mask.field.FieldMask;
-import com.br.guilherme.etlfw.mask.field.TextFieldMask;
 
 public class DeletionFormatBuilder extends DataBaseFormat {
 

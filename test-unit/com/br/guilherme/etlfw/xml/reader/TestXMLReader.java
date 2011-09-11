@@ -4,35 +4,44 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.w3c.dom.NodeList;
 
 public class TestXMLReader  extends Assert {
-	XMLReader parser;
+	XMLReader reader;
 	
 	@Before
 	public void setUp() {
-		parser = new XMLReader("/home/guilherme/workspace/ETL-Framework/entrada.xml");
+		reader = new XMLReader("/home/guilherme/workspace/ETL-Framework/entrada.xml");
 	}
 	
 	@After
 	public void tearDown() {
-		parser = null;
+		reader = null;
 	}
 	
-	@Test
-	public void shouldGetRootNodeName() {
-		assertEquals("Professores", parser.getRootNodeName());
-	}
+//	@Test
+//	public void shouldGetRootNodeName() {
+//		assertEquals("Professores", reader.getRootNodeName());
+//	}
+//	
+//	@Test
+//	public void shouldCountNodes() {
+//		assertEquals(3, reader.countNodes("professor"));
+//	}
+//	
+//	@Test
+//	public void shouldGetValues() {
+//		assertEquals("Luiz Gomes", reader.getValueForKey("professor", "Nome", 0));
+//		assertEquals("Claudio Faria", reader.getValueForKey("professor", "Nome", 2));
+//		assertEquals("555.444.555-44", reader.getValueForKey("professor", "CPF", 2));
+//	}
 	
 	@Test
-	public void shouldCountNodes() {
-		assertEquals(3, parser.countNodes("professor"));
-	}
-	
-	@Test
-	public void shouldGetValues() {
-		assertEquals("Luiz Gomes", parser.getValueForKey("professor", "Nome", 0));
-		assertEquals("Claudio Fária", parser.getValueForKey("professor", "Nome", 2));
-		assertEquals("555.444.555-44", parser.getValueForKey("professor", "CPF", 2));
+	public void shouldReadElements() {
+		NodeList list = reader.getElementList();
+		for(int s=0; s<list.getLength() ; s++)
+            System.out.println(s + " - " + list.item(s).toString());
+		assertEquals(3, list.getLength());
 	}
 	
 }
