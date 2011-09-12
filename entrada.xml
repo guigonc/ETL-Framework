@@ -1,14 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Professores>
-  <professor>
-      <Nome>Luiz Gomes</Nome>
-      <CPF>211.111.111-12</CPF>
-   </professor>
-   <professor>
-      <Nome>Marcio Leandro Gonçalves</Nome>
-      <CPF>144.444.444-44</CPF>
-   </professor>
-   <professor>
-      <Nome>Claudio Fária</Nome>
-      <CPF>555.444.555-44</CPF>
-   </professor>
+	<professor>
+    	<Nome>Luiz Gomes</Nome>
+      	<CPF>211.111.111-12</CPF>
+   	</professor>
+   	<professor>
+    	<Nome>Marcio Leandro Gonçalves</Nome>
+      	<CPF>144.444.444-44</CPF>
+   	</professor>
+   	<professor>
+    	<Nome>Claudio Fária</Nome>
+      	<CPF>555.444.555-44</CPF>
+   	</professor>
 </Professores>

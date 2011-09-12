@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.w3c.dom.NodeList;
 
 public class TestXMLReader  extends Assert {
 	XMLReader reader;
@@ -19,29 +18,23 @@ public class TestXMLReader  extends Assert {
 		reader = null;
 	}
 	
-//	@Test
-//	public void shouldGetRootNodeName() {
-//		assertEquals("Professores", reader.getRootNodeName());
-//	}
-//	
-//	@Test
-//	public void shouldCountNodes() {
-//		assertEquals(3, reader.countNodes("professor"));
-//	}
-//	
-//	@Test
-//	public void shouldGetValues() {
-//		assertEquals("Luiz Gomes", reader.getValueForKey("professor", "Nome", 0));
-//		assertEquals("Claudio Faria", reader.getValueForKey("professor", "Nome", 2));
-//		assertEquals("555.444.555-44", reader.getValueForKey("professor", "CPF", 2));
-//	}
+	@Test
+	public void shouldGetRootNodeName() {
+		assertEquals("Professores", reader.getRootNodeName());
+	}
 	
 	@Test
-	public void shouldReadElements() {
-		NodeList list = reader.getElementList();
-		for(int s=0; s<list.getLength() ; s++)
-            System.out.println(s + " - " + list.item(s).toString());
-		assertEquals(3, list.getLength());
+	public void shouldCountNodes() {
+		assertEquals(3, reader.countNodes("professor"));
+	}
+	
+	@Test
+	public void shouldGetValues() {
+		assertEquals("Luiz Gomes", reader.getValueForKey("Nome"));
+		reader.next();
+		reader.next();
+		assertEquals("Claudio Fária", reader.getValueForKey( "Nome"));
+		assertEquals("555.444.555-44", reader.getValueForKey("CPF"));
 	}
 	
 }

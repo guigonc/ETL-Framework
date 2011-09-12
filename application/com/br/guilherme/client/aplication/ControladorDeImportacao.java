@@ -2,9 +2,7 @@ package com.br.guilherme.client.aplication;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -15,8 +13,10 @@ import com.br.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
 import com.br.guilherme.etlfw.exceptions.UnkownRegistryException;
 import com.br.guilherme.etlfw.mask.field.FieldType;
 import com.br.guilherme.etlfw.mask.field.TextFieldMask;
+import com.br.guilherme.etlfw.mask.field.XMLFieldMask;
 import com.br.guilherme.etlfw.mask.file.FileMask;
 import com.br.guilherme.etlfw.mask.registry.TextRegistryMask;
+import com.br.guilherme.etlfw.mask.registry.XMLRegistryMask;
 
 public class ControladorDeImportacao {
 	public ControladorDeImportacao() {
@@ -26,14 +26,18 @@ public class ControladorDeImportacao {
 	
 	private void execucaoXML() {
 		FileMask mascaraDeArquivo;
-		TextRegistryMask mascaraDeRegistro;
-		TextFieldMask mascaraDoNome;
-		TextFieldMask mascaraDoCPF;
+		XMLRegistryMask mascaraDeRegistro;
+		XMLFieldMask mascaraDoNome;
+		XMLFieldMask mascaraDoCPF;
 		
 		mascaraDeArquivo = new FileMask("PROF", "1.0", "Arquivo de Professores");
-		mascaraDeRegistro = new TextRegistryMask("Professores", "1.0", "Professor");
-		mascaraDoNome = new TextFieldMask("Nome", 1, 25, 0, FieldType.A, false, false);
-		mascaraDoCPF = new TextFieldMask("CPF", 26, 39, 0, FieldType.A, false, true);
+		mascaraDeRegistro = new XMLRegistryMask("Professores", "professor", "1.0", "Professor");
+		mascaraDoNome = new XMLFieldMask("Nome", "Nome", 25, 0, FieldType.A, false, false);
+		mascaraDoCPF = new XMLFieldMask("CPF", "CPF", 14, 0, FieldType.A, false, true);
+		
+		mascaraDeRegistro.addField(mascaraDoNome);
+		mascaraDeRegistro.addField(mascaraDoCPF);
+//		mascaraDeArquivo.addRegistryMask(mascaraDeRegistro);
 	}
 
 	private void execucaoTexto() {
