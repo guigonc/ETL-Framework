@@ -20,25 +20,25 @@ import com.br.guilherme.etlfw.mask.registry.XMLRegistryMask;
 
 public class ControladorDeImportacao {
 	public ControladorDeImportacao() {
-		//execucaoTexto();
-		execucaoXML();
+		execucaoTexto();
+		//execucaoXML();
 	}
 	
-	private void execucaoXML() {
-		FileMask mascaraDeArquivo;
-		XMLRegistryMask mascaraDeRegistro;
-		XMLFieldMask mascaraDoNome;
-		XMLFieldMask mascaraDoCPF;
-		
-		mascaraDeArquivo = new FileMask("PROF", "1.0", "Arquivo de Professores");
-		mascaraDeRegistro = new XMLRegistryMask("Professores", "professor", "1.0", "Professor");
-		mascaraDoNome = new XMLFieldMask("Nome", "Nome", 25, 0, FieldType.A, false, false);
-		mascaraDoCPF = new XMLFieldMask("CPF", "CPF", 14, 0, FieldType.A, false, true);
-		
-		mascaraDeRegistro.addField(mascaraDoNome);
-		mascaraDeRegistro.addField(mascaraDoCPF);
-//		mascaraDeArquivo.addRegistryMask(mascaraDeRegistro);
-	}
+//	private void execucaoXML() {
+//		FileMask mascaraDeArquivo;
+//		XMLRegistryMask mascaraDeRegistro;
+//		XMLFieldMask mascaraDoNome;
+//		XMLFieldMask mascaraDoCPF;
+//		
+//		mascaraDeArquivo = new FileMask("PROF", "1.0", "Arquivo de Professores");
+//		mascaraDeRegistro = new XMLRegistryMask("Professores", "professor", "1.0", "Professor");
+//		mascaraDoNome = new XMLFieldMask("Nome", "Nome", 25, 0, FieldType.A, false, false);
+//		mascaraDoCPF = new XMLFieldMask("CPF", "CPF", 14, 0, FieldType.A, false, true);
+//		
+//		mascaraDeRegistro.addField(mascaraDoNome);
+//		mascaraDeRegistro.addField(mascaraDoCPF);
+////		mascaraDeArquivo.addRegistryMask(mascaraDeRegistro);
+//	}
 
 	private void execucaoTexto() {
 		FileMask mascaraDeArquivo;
@@ -51,8 +51,8 @@ public class ControladorDeImportacao {
 		mascaraDeRegistro = new TextRegistryMask("Professores", "1.0", "Professor");
 		mascaraDoNome = new TextFieldMask("Nome", 1, 25, 0, FieldType.A, false, false);
 		mascaraDoCPF = new TextFieldMask("CPF", 26, 39, 0, FieldType.A, false, true);
-		pendencia = new ModificationAssignment(AssignmentType.ALTER, false);
-		mascaraDoNome.addAssignment(pendencia);
+		//pendencia = new ModificationAssignment(AssignmentType.ALTER, false);
+		//mascaraDoNome.addAssignment(pendencia);
 		mascaraDeRegistro.addField(mascaraDoNome);
 		mascaraDeRegistro.addField(mascaraDoCPF);
 		mascaraDeArquivo.addRegistryMask(mascaraDeRegistro);
@@ -83,26 +83,27 @@ public class ControladorDeImportacao {
 	
 	private void insereRegistro(TextRegistryMask registro) {
 		criaTabela(registro);
-		aplicaAlteracoes(registro);
-		Connection conector;
-		
-		try {
-			conector = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/estagio2", "root", "");
-			conector.createStatement().executeUpdate(registro.formatToInsert());
-			conector.close();
-		} catch (SQLException e) { e.printStackTrace();}
+		System.out.println(registro.formatToInsert());
+//		aplicaAlteracoes(registro);
+//		Connection conector;
+//		
+//		try {
+//			conector = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/estagio2", "root", "");
+//			conector.createStatement().executeUpdate(registro.formatToInsert());
+//			conector.close();
+//		} catch (SQLException e) { e.printStackTrace();}
 	}
 	
 	private void criaTabela(TextRegistryMask registro) {
 		String tabela = registro.formatToCreateTable();
-		
-		Connection conector;
-		
-		try {
-			conector = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/estagio2", "root", "");
-			conector.createStatement().executeUpdate(tabela);
-			conector.close();
-		} catch (SQLException e) { e.printStackTrace();}
+		System.out.println(tabela);
+//		Connection conector;
+//		
+//		try {
+//			conector = (Connection) DriverManager.getConnection("jdbc:mysql://localhost/estagio2", "root", "");
+//			conector.createStatement().executeUpdate(tabela);
+//			conector.close();
+//		} catch (SQLException e) { e.printStackTrace();}
 	}
 
 	private void aplicaAlteracoes(TextRegistryMask registro) {

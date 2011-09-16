@@ -7,18 +7,12 @@ import java.util.List;
 import com.br.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
 import com.br.guilherme.etlfw.format.database.AlterationFormatBuilder;
 import com.br.guilherme.etlfw.format.database.DeletionFormatBuilder;
-import com.br.guilherme.etlfw.format.database.InsertionFormatBuilder;
 import com.br.guilherme.etlfw.format.database.TableCreationFormatBuilder;
 import com.br.guilherme.etlfw.mask.field.TextFieldMask;
 
-public class TextRegistryMask {
+public class TextRegistryMask extends RegistryMask<TextFieldMask>{
 
-   private String tableName;
-   private String version;
-   private String description;
    private int size;
-   private List<TextFieldMask> fields;
-   private TextFieldMask identifier;
 
    public TextRegistryMask(String tableName, String version, String description) {
       this.tableName = tableName;
@@ -27,12 +21,6 @@ public class TextRegistryMask {
       size = 0;
       fields = Collections.emptyList();
    }
-   
-   public String getTableName() { return tableName; }
-   
-   public String getVersion() { return version; }
-   
-   public String getDescription() { return description; }
    
    public List<TextFieldMask> getFields() { return fields; }
    
@@ -94,28 +82,6 @@ public class TextRegistryMask {
       tableCreationFormat.finish();
 
       return tableCreationFormat.toString();
-   }
-
-   public String formatToInsert() {
-      InsertionFormatBuilder insertionFormat = new InsertionFormatBuilder();
-
-      insertionFormat.addTableName(getTableName());
-      for (TextFieldMask field : fields) {
-         insertionFormat.addField(field);
-      }
-      insertionFormat.finish();
-      return insertionFormat.toString();
-   }
-
-   String formatToDelete() {
-      DeletionFormatBuilder deletionformat = new DeletionFormatBuilder();
-
-      deletionformat.addTableName(getTableName());
-      for (TextFieldMask field : fields) {
-         deletionformat.addField(field);
-      }
-      deletionformat.finish();
-      return deletionformat.toString();
    }
 
    public String formatToAlter() {

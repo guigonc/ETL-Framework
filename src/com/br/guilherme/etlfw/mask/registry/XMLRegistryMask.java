@@ -10,7 +10,7 @@ import com.br.guilherme.etlfw.format.database.InsertionFormatBuilder;
 import com.br.guilherme.etlfw.format.database.TableCreationFormatBuilder;
 import com.br.guilherme.etlfw.mask.field.XMLFieldMask;
 
-public class XMLRegistryMask {
+public class XMLRegistryMask extends RegistryMask{
 
    private String tableName;
    private String tagName; 
@@ -83,41 +83,6 @@ public class XMLRegistryMask {
       }
       return this;
    }*/
-
-   public String formatToCreateTable() {
-      TableCreationFormatBuilder tableCreationFormat = new TableCreationFormatBuilder();
-
-      tableCreationFormat.addTableName(getTableName());
-
-      for (XMLFieldMask field : fields) {
-         tableCreationFormat.addField(field);
-      }
-      tableCreationFormat.finish();
-
-      return tableCreationFormat.toString();
-   }
-
-   public String formatToInsert() {
-      InsertionFormatBuilder insertionFormat = new InsertionFormatBuilder();
-
-      insertionFormat.addTableName(getTableName());
-      for (XMLFieldMask field : fields) {
-         insertionFormat.addField(field);
-      }
-      insertionFormat.finish();
-      return insertionFormat.toString();
-   }
-
-   String formatToDelete() {
-      DeletionFormatBuilder deletionformat = new DeletionFormatBuilder();
-
-      deletionformat.addTableName(getTableName());
-      for (XMLFieldMask field : fields) {
-         deletionformat.addField(field);
-      }
-      deletionformat.finish();
-      return deletionformat.toString();
-   }
 
    public String formatToAlter() {
       AlterationFormatBuilder alterationFormat = new AlterationFormatBuilder();
