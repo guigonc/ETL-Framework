@@ -14,7 +14,7 @@ import com.br.guilherme.etlfw.exceptions.UnkownRegistryException;
 import com.br.guilherme.etlfw.mask.field.FieldType;
 import com.br.guilherme.etlfw.mask.field.TextFieldMask;
 import com.br.guilherme.etlfw.mask.field.XMLFieldMask;
-import com.br.guilherme.etlfw.mask.file.FileMask;
+import com.br.guilherme.etlfw.mask.file.TextFileMask;
 import com.br.guilherme.etlfw.mask.registry.TextRegistryMask;
 import com.br.guilherme.etlfw.mask.registry.XMLRegistryMask;
 
@@ -41,13 +41,13 @@ public class ControladorDeImportacao {
 //	}
 
 	private void execucaoTexto() {
-		FileMask mascaraDeArquivo;
+		TextFileMask mascaraDeArquivo;
 		TextRegistryMask mascaraDeRegistro;
 		TextFieldMask mascaraDoNome;
 		TextFieldMask mascaraDoCPF;
 		ModificationAssignment pendencia;
 		
-		mascaraDeArquivo = new FileMask("PROF", "1.0", "Arquivo de Professores");
+		mascaraDeArquivo = new TextFileMask("PROF", "1.0", "Arquivo de Professores");
 		mascaraDeRegistro = new TextRegistryMask("Professores", "1.0", "Professor");
 		mascaraDoNome = new TextFieldMask("Nome", 1, 25, 0, FieldType.A, false, false);
 		mascaraDoCPF = new TextFieldMask("CPF", 26, 39, 0, FieldType.A, false, true);

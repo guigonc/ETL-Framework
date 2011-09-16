@@ -1,7 +1,5 @@
 package com.br.guilherme.etlfw.mask.field;
 
-
-
 public class TextFieldMask extends FieldMask{
 
     private int initialPosition;

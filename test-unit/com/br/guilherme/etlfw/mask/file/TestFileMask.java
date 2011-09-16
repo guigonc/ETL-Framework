@@ -9,15 +9,15 @@ import com.br.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
 import com.br.guilherme.etlfw.exceptions.UnkownRegistryException;
 import com.br.guilherme.etlfw.mask.field.FieldType;
 import com.br.guilherme.etlfw.mask.field.TextFieldMask;
-import com.br.guilherme.etlfw.mask.file.FileMask;
+import com.br.guilherme.etlfw.mask.file.TextFileMask;
 import com.br.guilherme.etlfw.mask.registry.TextRegistryMask;
 
 public class TestFileMask extends Assert {
-	FileMask file;
+	TextFileMask file;
 	
 	@Before
 	public void setUp() {
-		file = new FileMask("Prof","1.0","Arquivo de Professores");
+		file = new TextFileMask("Prof","1.0","Arquivo de Professores");
 	}
 	
 	@After
@@ -27,7 +27,7 @@ public class TestFileMask extends Assert {
 	
 	@Test
 	public void shouldInstance() {
-		assertTrue(file instanceof FileMask);
+		assertTrue(file instanceof TextFileMask);
 		assertEquals("PROF", file.getCode());
 		assertEquals("1.0", file.getVersion());
 		assertEquals("Arquivo de Professores", file.getDescription());
