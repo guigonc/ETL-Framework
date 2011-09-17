@@ -8,7 +8,7 @@ import org.junit.Test;
 import com.guilherme.etlfw.assignment.AssignmentType;
 import com.guilherme.etlfw.assignment.ModificationAssignment;
 import com.guilherme.etlfw.mask.field.FieldType;
-import com.guilherme.etlfw.mask.field.TextFieldMask;
+import com.guilherme.etlfw.mask.field.FixedLengthFieldMask;
 
 public class TestDeletionFormatBuilder extends Assert {
 	
@@ -41,7 +41,7 @@ public class TestDeletionFormatBuilder extends Assert {
 		deletionFormat.addTableName("Table");
 		
 		ModificationAssignment assignment = new ModificationAssignment(AssignmentType.ALTER, false);
-		TextFieldMask mask = new TextFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
+		FixedLengthFieldMask mask = new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
 		mask.addAssignment(assignment);
 		deletionFormat.addField(mask).addField(mask).finish();
 		

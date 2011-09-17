@@ -17,7 +17,7 @@ public abstract class RegistryMask<T extends FieldMask> {
 	private List<T> fields;
 	private T identifier;
 	private int size;
-	
+
 	public RegistryMask(String tableName, String version, String description) {
 		this.tableName = tableName;
 		this.version = version;
@@ -45,6 +45,7 @@ public abstract class RegistryMask<T extends FieldMask> {
 	public void setSize(int size) {
 		this.size = size;
 	}
+
 	public int size() {
 		return size;
 	}
@@ -55,7 +56,7 @@ public abstract class RegistryMask<T extends FieldMask> {
 
 	public abstract void setSize();
 
-	public void addField(final T field) {
+	public void addField(T field) {
 		if (this.fields.isEmpty()) {
 			this.fields = new ArrayList<T>();
 		}
@@ -65,7 +66,7 @@ public abstract class RegistryMask<T extends FieldMask> {
 		identifyRegistry(field);
 	}
 
-	private void identifyRegistry(final T field) {
+	private void identifyRegistry(T field) {
 		if (field.hasRegistryType() == true) {
 			this.identifier = field;
 		}

@@ -5,17 +5,17 @@ import java.util.Set;
 
 import com.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
 import com.guilherme.etlfw.exceptions.UnkownRegistryException;
-import com.guilherme.etlfw.mask.registry.TextRegistryMask;
+import com.guilherme.etlfw.mask.registry.FixedLengthRegistryMask;
 
-public class TextFileMask extends FileMask<TextRegistryMask>{
+public class FixedLengthFileMask extends FileMask<FixedLengthRegistryMask>{
 
-	public TextFileMask(String fileCode, String fileVersion, String fileDescription) {
+	public FixedLengthFileMask(String fileCode, String fileVersion, String fileDescription) {
 		super(fileCode.toUpperCase(Locale.getDefault()), fileVersion, fileDescription);
 	}
 
-	protected TextRegistryMask getRegistry(final String line, final Set<String> keys) {
-		TextRegistryMask result = null;
-		TextRegistryMask registry;
+	final protected FixedLengthRegistryMask getRegistry(String line, Set<String> keys) {
+		FixedLengthRegistryMask result = null;
+		FixedLengthRegistryMask registry;
 		String type;
 		int size, start, end;
 
@@ -38,20 +38,19 @@ public class TextFileMask extends FileMask<TextRegistryMask>{
 		}
 		return result;
 	}
-
-	public final TextRegistryMask getRegistryWithValues(final String line)
+	
+	final public FixedLengthRegistryMask getRegistryWithValues(String line)
 			throws UnkownRegistryException, InvalidRegistrySizeException {
 		Set<String> keys;
-		TextRegistryMask result;
+		FixedLengthRegistryMask result;
 
 		keys = getRegistryMasks().keySet();
 
 		result = getRegistry(line, keys);
 		if (result == null) {
 			throw new UnkownRegistryException(String.format(
-					"Unknown Registry <%s>", line));
+			"Unknown Registry <%s>", line));
 		}
 		return result.getRegistryWithValues(line);
 	}
-
 }

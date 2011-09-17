@@ -7,9 +7,8 @@ import org.junit.Test;
 
 import com.guilherme.etlfw.assignment.AssignmentType;
 import com.guilherme.etlfw.assignment.ModificationAssignment;
-import com.guilherme.etlfw.format.database.AlterationFormatBuilder;
 import com.guilherme.etlfw.mask.field.FieldType;
-import com.guilherme.etlfw.mask.field.TextFieldMask;
+import com.guilherme.etlfw.mask.field.FixedLengthFieldMask;
 
 public class TestAlterationFormatBuilder extends Assert {
 	
@@ -42,7 +41,7 @@ public class TestAlterationFormatBuilder extends Assert {
 		alterationFormat.addTableName("Table");
 		
 		ModificationAssignment assignment = new ModificationAssignment(AssignmentType.ALTER, false);
-		TextFieldMask mask = new TextFieldMask("field", 1, 10, 2, FieldType.A, false, true);
+		FixedLengthFieldMask mask = new FixedLengthFieldMask("field", 1, 10, 2, FieldType.A, false, true);
 		mask.addAssignment(assignment);
 		alterationFormat.addField(mask);
 		
@@ -54,7 +53,7 @@ public class TestAlterationFormatBuilder extends Assert {
 		alterationFormat.addTableName("Table");
 		
 		ModificationAssignment assignment = new ModificationAssignment(AssignmentType.ALTER, false);
-		TextFieldMask mask = new TextFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
+		FixedLengthFieldMask mask = new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
 		mask.addAssignment(assignment);
 		alterationFormat.addField(mask).addField(mask).finish();
 		
@@ -65,7 +64,7 @@ public class TestAlterationFormatBuilder extends Assert {
 	public void shouldNotCreateStatementWithoutField() {
 		alterationFormat.addTableName("Table");
 		
-		TextFieldMask mask = new TextFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
+		FixedLengthFieldMask mask = new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
 		alterationFormat.addField(mask).finish();
 		
 		assertEquals("", alterationFormat.toString());

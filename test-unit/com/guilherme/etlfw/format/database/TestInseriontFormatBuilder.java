@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.guilherme.etlfw.mask.field.FieldType;
-import com.guilherme.etlfw.mask.field.TextFieldMask;
+import com.guilherme.etlfw.mask.field.FixedLengthFieldMask;
 
 public class TestInseriontFormatBuilder extends Assert { 
 	
@@ -38,7 +38,7 @@ public class TestInseriontFormatBuilder extends Assert {
 	public void shouldCreateStatement() {
 		insertionFormat.addTableName("Table");
 		
-		TextFieldMask mask = new TextFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
+		FixedLengthFieldMask mask = new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
 		insertionFormat.addField(mask).addField(mask).finish();
 		
 		assertEquals("INSERT INTO Table (FIELD,FIELD) VALUES(\"null\",\"null\");", insertionFormat.toString());

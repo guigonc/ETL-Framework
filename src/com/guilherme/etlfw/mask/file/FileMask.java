@@ -37,11 +37,12 @@ public abstract class FileMask<T extends RegistryMask<?>> {
 		return registryMasks;
 	}
 
-	public final void addRegistryMask(final T registry) {
+	public final void addRegistryMask(T registry) {
 		if (this.registryMasks.isEmpty()) {
 			this.registryMasks = new HashMap<String, T>();
 		}
-		this.registryMasks.put(registry.getTableName() + registry.getVersion(), registry);
+		this.registryMasks.put(registry.getTableName() + registry.getVersion(),
+				registry);
 	}
-	
+
 }

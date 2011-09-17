@@ -3,7 +3,7 @@ package com.guilherme.etlfw.format.database;
 import com.guilherme.etlfw.mask.field.FieldMask;
 
 public class TableCreationFormatBuilder extends DataBaseFormat {
-	
+
 	public TableCreationFormatBuilder() {
 		super(new StringBuilder("CREATE TABLE IF NOT EXISTS"));
 	}
@@ -26,6 +26,8 @@ public class TableCreationFormatBuilder extends DataBaseFormat {
 			this.hasField = true;
 		}
 		this.mainClause.append(formatField(mask));
+		if(mask.isPrimaryKey())
+			this.mainClause.append(space() + "PRIMARY KEY");
 		return this;
 	}
 
@@ -34,5 +36,5 @@ public class TableCreationFormatBuilder extends DataBaseFormat {
 		this.mainClause.append("ENGINE='MYISAM';");
 		return this;
 	}
-	
+
 }

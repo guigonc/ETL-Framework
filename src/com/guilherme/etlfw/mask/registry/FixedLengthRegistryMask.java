@@ -1,24 +1,26 @@
 package com.guilherme.etlfw.mask.registry;
 
 import com.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
-import com.guilherme.etlfw.mask.field.TextFieldMask;
+import com.guilherme.etlfw.mask.field.FixedLengthFieldMask;
 
-public class TextRegistryMask extends RegistryMask<TextFieldMask> {
+public class FixedLengthRegistryMask extends RegistryMask<FixedLengthFieldMask> {
 
-	public TextRegistryMask(String tableName, String version, String description) {
+	public FixedLengthRegistryMask(String tableName, String version,
+			String description) {
+		
 		super(tableName, version, description);
 	}
 
-	public void setSize() {
+	final public void setSize() {
 		setSize(0);
-		for (TextFieldMask mask : getFields()) {
+		for (FixedLengthFieldMask mask : getFields()) {
 			if (size() < mask.getFinalPosition()) {
 				setSize(mask.getFinalPosition());
 			}
 		}
 	}
 
-	public TextRegistryMask getRegistryWithValues(final String fileLine)
+	final public FixedLengthRegistryMask getRegistryWithValues(String fileLine)
 			throws InvalidRegistrySizeException {
 		int registrySize = size();
 		String line = String.format("%1$-" + registrySize + "s", fileLine);
@@ -26,7 +28,7 @@ public class TextRegistryMask extends RegistryMask<TextFieldMask> {
 
 		if (lineSize == registrySize) {
 			try {
-				for (TextFieldMask field : getFields())
+				for (FixedLengthFieldMask field : getFields())
 					field.setValue(line.substring(
 							field.getInitialPosition() - 1,
 							field.getFinalPosition()));
@@ -40,11 +42,12 @@ public class TextRegistryMask extends RegistryMask<TextFieldMask> {
 		return this;
 	}
 
-	public int getIdentifierInitialPosition() {
+	final public int getIdentifierInitialPosition() {
 		return getIdentifier().getInitialPosition();
 	}
 
 	public int getIdentifierFinalPosition() {
 		return getIdentifier().getFinalPosition();
 	}
+	
 }

@@ -12,11 +12,12 @@ public class XMLFileMask extends FileMask<RegistryMask<?>> {
 
 	public XMLFileMask(String fileCode, String fileVersion,
 			String fileDescription) {
+		
 		super(fileCode.toUpperCase(Locale.getDefault()), fileVersion,
 				fileDescription);
 	}
 
-	protected XMLRegistryMask getRegistry(final XMLElement element,
+	final protected XMLRegistryMask getRegistry(XMLElement element,
 			final Set<String> keys) {
 		XMLRegistryMask result = null;
 		XMLRegistryMask registry;
@@ -35,7 +36,7 @@ public class XMLFileMask extends FileMask<RegistryMask<?>> {
 		return result;
 	}
 
-	public final XMLRegistryMask getRegistryWithValues(XMLElement element)
+	final public XMLRegistryMask getRegistryWithValues(XMLElement element)
 			throws UnkownRegistryException {
 		Set<String> keys;
 		XMLRegistryMask result;

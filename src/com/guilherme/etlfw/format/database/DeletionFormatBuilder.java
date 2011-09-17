@@ -37,5 +37,5 @@ public class DeletionFormatBuilder extends DataBaseFormat {
 		}
 		return this;
 	}
-	
+
 }

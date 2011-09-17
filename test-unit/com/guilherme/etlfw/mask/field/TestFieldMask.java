@@ -9,13 +9,12 @@ import com.guilherme.etlfw.assignment.ModificationAssignment;
 public class TestFieldMask extends Assert {
 	
 	@Test
-	public void shouldInstanceATextFieldMask() {
-		TextFieldMask field = new TextFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
+	public void shouldInstanceDelimitedFieldMask() {
+		DelimitedFieldMask field = new DelimitedFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
 		
-		assertTrue(field instanceof TextFieldMask);
+		assertTrue(field instanceof DelimitedFieldMask);
 		assertEquals("FIELD", field.getFieldName());
-		assertEquals(1,	field.getInitialPosition());
-		assertEquals(10, field.getFinalPosition());
+		assertEquals(1,	field.getPosition());
 		assertEquals(FieldType.A, field.getFieldType());
 		assertEquals(10, field.size());
 		assertEquals(2, field.getDecimalPlaces());
@@ -24,7 +23,7 @@ public class TestFieldMask extends Assert {
 	}
 	
 	@Test
-	public void shouldInstance() {
+	public void shouldInstanceXMLFieldMask() {
 		XMLFieldMask field = new XMLFieldMask("Field", "field", 10, 2, FieldType.A, false, true);
 		
 		assertTrue(field instanceof XMLFieldMask);

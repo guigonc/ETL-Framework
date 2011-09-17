@@ -32,7 +32,8 @@ public class AlterationFormatBuilder extends DataBaseFormat {
 	private String formatAssignment(FieldMask field) {
 		StringBuilder result = new StringBuilder();
 
-		for (ModificationAssignment assignment : field.getAlterationAssignment()) {
+		for (ModificationAssignment assignment : field
+				.getAlterationAssignment()) {
 			if ((assignment.isSolved())
 					|| (assignment.getAssignmentTypeCode() == AssignmentType.DELETE)) {
 				continue;

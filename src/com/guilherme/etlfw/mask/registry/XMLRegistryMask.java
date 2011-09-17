@@ -13,22 +13,22 @@ public class XMLRegistryMask extends RegistryMask<XMLFieldMask> {
 		this.setTagName(tagName);
 	}
 
-	public void setSize() {
+	final public void setSize() {
 		setSize(0);
 		for (XMLFieldMask mask : getFields()) {
 			setSize(size() + mask.size());
 		}
 	}
 
-	private void setTagName(String tagName) {
+	final private void setTagName(String tagName) {
 		this.tagName = tagName;
 	}
 
-	public String getTagName() {
+	final public String getTagName() {
 		return tagName;
 	}
 
-	public XMLRegistryMask getRegistryWithValues(XMLElement element) {
+	final public XMLRegistryMask getRegistryWithValues(XMLElement element) {
 		for (XMLFieldMask mask : getFields())
 			mask.setValue(element.getChildValueByTagName(mask.getTagName()));
 		return this;
