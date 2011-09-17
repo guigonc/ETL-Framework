@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import com.guilherme.etlfw.mask.registry.RegistryMask;
 
@@ -13,13 +12,13 @@ public abstract class FileMask<T extends RegistryMask<?>> {
 	private String code;
 	private String version;
 	private String description;
-	private Map<String, T> registryMask;
+	private Map<String, T> registryMasks;
 
 	public FileMask(String fileCode, String fileVersion, String fileDescription) {
 		code = fileCode.toUpperCase(Locale.getDefault());
 		version = fileVersion;
 		description = fileDescription;
-		registryMask = Collections.emptyMap();
+		registryMasks = Collections.emptyMap();
 	}
 
 	public final String getCode() {
@@ -35,16 +34,14 @@ public abstract class FileMask<T extends RegistryMask<?>> {
 	}
 
 	public final Map<String, T> getRegistryMasks() {
-		return registryMask;
+		return registryMasks;
 	}
 
 	public final void addRegistryMask(final T registry) {
-		if (this.registryMask.isEmpty()) {
-			this.registryMask = new HashMap<String, T>();
+		if (this.registryMasks.isEmpty()) {
+			this.registryMasks = new HashMap<String, T>();
 		}
-		this.registryMask.put(registry.getTableName() + registry.getVersion(), registry);
+		this.registryMasks.put(registry.getTableName() + registry.getVersion(), registry);
 	}
 	
-	protected abstract T getRegistry(final String line, final Set<String> keys);
-
 }

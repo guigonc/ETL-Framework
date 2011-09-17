@@ -3,55 +3,51 @@ package com.guilherme.etlfw.mask.file;
 import java.util.Locale;
 import java.util.Set;
 
+import com.guilherme.etlfw.exceptions.UnkownRegistryException;
 import com.guilherme.etlfw.mask.registry.RegistryMask;
 import com.guilherme.etlfw.mask.registry.XMLRegistryMask;
+import com.guilherme.etlfw.xml.element.XMLElement;
 
-public class XMLFileMask extends FileMask<RegistryMask<?>>{
+public class XMLFileMask extends FileMask<RegistryMask<?>> {
 
-	public XMLFileMask(String fileCode, String fileVersion, String fileDescription) {
-		super(fileCode.toUpperCase(Locale.getDefault()), fileVersion, fileDescription);
+	public XMLFileMask(String fileCode, String fileVersion,
+			String fileDescription) {
+		super(fileCode.toUpperCase(Locale.getDefault()), fileVersion,
+				fileDescription);
 	}
 
-	protected XMLRegistryMask getRegistry(final String line, final Set<String> keys) {
-	/*	XMLRegistryMask result = null;
+	protected XMLRegistryMask getRegistry(final XMLElement element,
+			final Set<String> keys) {
+		XMLRegistryMask result = null;
 		XMLRegistryMask registry;
-		String type;
-		int size, start, end;
 
 		for (String key : keys) {
-			registry = this.registryMask.get(key);
+			registry = (XMLRegistryMask) getRegistryMasks().get(key);
 			if (keys.size() == 1) {
 				result = registry;
 				break;
 			}
-			size = line.length();
-			start = registry.getInitialPosition() - 1;
-			end = registry.getFinalPosition();
-			if ((start <= end) && (end <= size)) {
-				type = line.substring(start, end);
-				if (registry.getTableName().equalsIgnoreCase(type)) {
-					result = registry;
-					break;
-				}
+			if (registry.getTableName().equalsIgnoreCase(element.getTagName())) {
+				result = registry;
+				break;
 			}
 		}
-		return result;*/
-		return null;	
+		return result;
 	}
 
-	/*public final XMLRegistryMask getRegistryWithValues(final String line)
-			throws UnkownRegistryException, InvalidRegistrySizeException {
+	public final XMLRegistryMask getRegistryWithValues(XMLElement element)
+			throws UnkownRegistryException {
 		Set<String> keys;
 		XMLRegistryMask result;
 
-		keys = registryMask.keySet();
+		keys = getRegistryMasks().keySet();
 
-		result = getRegistry(line, keys);
+		result = getRegistry(element, keys);
 		if (result == null) {
 			throw new UnkownRegistryException(String.format(
-					"Unknown Registry <%s>", line));
+					"Unknown Registry <%s>", element.getTagName()));
 		}
-		return result.getRegistryWithValues(line);
-	}*/
+		return result.getRegistryWithValues(element);
+	}
 
 }

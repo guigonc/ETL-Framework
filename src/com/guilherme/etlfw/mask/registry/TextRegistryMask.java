@@ -40,11 +40,11 @@ public class TextRegistryMask extends RegistryMask<TextFieldMask> {
 		return this;
 	}
 
-	public int getInitialPosition() {
+	public int getIdentifierInitialPosition() {
 		return getIdentifier().getInitialPosition();
 	}
 
-	public int getFinalPosition() {
+	public int getIdentifierFinalPosition() {
 		return getIdentifier().getFinalPosition();
 	}
 }

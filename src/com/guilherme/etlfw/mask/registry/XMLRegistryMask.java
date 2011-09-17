@@ -1,6 +1,7 @@
 package com.guilherme.etlfw.mask.registry;
 
 import com.guilherme.etlfw.mask.field.XMLFieldMask;
+import com.guilherme.etlfw.xml.element.XMLElement;
 
 public class XMLRegistryMask extends RegistryMask<XMLFieldMask> {
 
@@ -27,18 +28,10 @@ public class XMLRegistryMask extends RegistryMask<XMLFieldMask> {
 		return tagName;
 	}
 
-	/*
-	 * public XMLRegistryMask getRegistryWithValues(final NodeList fileElement)
-	 * throws InvalidRegistrySizeException { int registrySize = size(); String
-	 * line = String.format("%1$-" + registrySize + "s", fileElement); int
-	 * lineSize = line.length();
-	 * 
-	 * if (lineSize == registrySize) { try { for (XMLFieldMask mask : fields)
-	 * mask.setValue(line.substring(mask.getInitialPosition() - 1,
-	 * mask.getFinalPosition())); } catch (IndexOutOfBoundsException
-	 * indexOutOfBoundsException) { throw new
-	 * InvalidRegistrySizeException(indexOutOfBoundsException); } } else { throw
-	 * new InvalidRegistrySizeException(); } return this; }
-	 */
+	public XMLRegistryMask getRegistryWithValues(XMLElement element) {
+		for (XMLFieldMask mask : getFields())
+			mask.setValue(element.getChildValueByTagName(mask.getTagName()));
+		return this;
+	}
 
 }

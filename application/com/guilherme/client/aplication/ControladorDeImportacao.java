@@ -18,10 +18,12 @@ import com.guilherme.etlfw.mask.file.TextFileMask;
 import com.guilherme.etlfw.mask.file.XMLFileMask;
 import com.guilherme.etlfw.mask.registry.TextRegistryMask;
 import com.guilherme.etlfw.mask.registry.XMLRegistryMask;
+import com.guilherme.etlfw.xml.element.XMLElement;
+import com.guilherme.etlfw.xml.reader.XMLReader;
 
 public class ControladorDeImportacao {
 	public ControladorDeImportacao() {
-		execucaoTexto();
+		//execucaoTexto();
 		execucaoXML();
 	}
 	
@@ -39,6 +41,18 @@ public class ControladorDeImportacao {
 		mascaraDeRegistro.addField(mascaraDoNome);
 		mascaraDeRegistro.addField(mascaraDoCPF);
 		mascaraDeArquivo.addRegistryMask(mascaraDeRegistro);
+		
+		XMLReader reader = new XMLReader("/home/guilherme/workspace/ETL-Framework/entrada.xml");
+		XMLRegistryMask registro;
+		do {
+			try {
+				XMLElement element = reader.getElement();
+				registro = mascaraDeArquivo.getRegistryWithValues(element);
+				System.out.println(registro.formatToInsert());
+			} 
+			catch (UnkownRegistryException e) {e.printStackTrace();} 
+		} while(reader.next());
+		
 	}
 
 	private void execucaoTexto() {

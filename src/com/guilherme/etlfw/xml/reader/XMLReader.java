@@ -29,7 +29,7 @@ public class XMLReader {
 			
 			cleanDocument();
 
-			moveToFirst();
+			first();
 		} 
 		catch (SAXException e) {e.printStackTrace();}
 		catch (IOException e) {e.printStackTrace();} 
@@ -48,7 +48,7 @@ public class XMLReader {
 		return document.getDocumentElement().getNodeName();
 	}
 
-	public int countNodes(String key) {
+	public int countNodes() {
 		return list.getLength();
 	}
 
@@ -57,19 +57,25 @@ public class XMLReader {
         return element.getChildValueByTagName(value);
 	}
 
-	public void next() {
-		position++;
+	public boolean next() {
+		if(++position < list.getLength()) 
+			return true;
+		last();
+		return false;
 	}
 	
-	public void previous() {
-		position--;
+	public boolean previous() {
+		if(--position >= 0)
+			return true;
+		first();
+		return false;
 	}
 	
-	public void moveToFirst() {
+	public void first() {
 		position = 0;
 	}
 	
-	public void moveToLast() {
+	public void last() {
 		position = list.getLength()-1;
 	}
 

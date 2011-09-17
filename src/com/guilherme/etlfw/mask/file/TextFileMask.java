@@ -13,7 +13,6 @@ public class TextFileMask extends FileMask<TextRegistryMask>{
 		super(fileCode.toUpperCase(Locale.getDefault()), fileVersion, fileDescription);
 	}
 
-	@Override
 	protected TextRegistryMask getRegistry(final String line, final Set<String> keys) {
 		TextRegistryMask result = null;
 		TextRegistryMask registry;
@@ -27,8 +26,8 @@ public class TextFileMask extends FileMask<TextRegistryMask>{
 				break;
 			}
 			size = line.length();
-			start = registry.getInitialPosition() - 1;
-			end = registry.getFinalPosition();
+			start = registry.getIdentifierInitialPosition() - 1;
+			end = registry.getIdentifierFinalPosition();
 			if ((start <= end) && (end <= size)) {
 				type = line.substring(start, end);
 				if (registry.getTableName().equalsIgnoreCase(type)) {

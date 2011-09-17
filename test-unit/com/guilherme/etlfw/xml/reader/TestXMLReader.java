@@ -5,8 +5,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.guilherme.etlfw.xml.reader.XMLReader;
-
 public class TestXMLReader  extends Assert {
 	XMLReader reader;
 	
@@ -27,7 +25,7 @@ public class TestXMLReader  extends Assert {
 	
 	@Test
 	public void shouldCountNodes() {
-		assertEquals(3, reader.countNodes("professor"));
+		assertEquals(3, reader.countNodes());
 	}
 	
 	@Test
@@ -37,6 +35,22 @@ public class TestXMLReader  extends Assert {
 		reader.next();
 		assertEquals("Claudio Fária", reader.getValueForKey( "Nome"));
 		assertEquals("555.444.555-44", reader.getValueForKey("CPF"));
+	}
+	
+	@Test
+	public void shouldVerifyIfHasNext() {
+		assertTrue(reader.next());
+		assertTrue(reader.next());
+		assertFalse(reader.next());
+	}
+	
+	@Test
+	public void shouldVerifyIfHasPrevious() {
+		assertFalse(reader.previous());
+		reader.last();
+		assertTrue(reader.previous());
+		assertTrue(reader.previous());
+		assertFalse(reader.previous());
 	}
 	
 }

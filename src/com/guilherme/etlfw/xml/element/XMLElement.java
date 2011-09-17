@@ -15,4 +15,8 @@ public class XMLElement {
 		return element.getElementsByTagName(child).item(0).getChildNodes().item(0).getNodeValue();
 	}
 
+	public String getTagName() {
+		return element.getTagName();
+	}
+
 }

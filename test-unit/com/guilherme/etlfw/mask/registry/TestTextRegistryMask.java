@@ -64,8 +64,8 @@ public class TestTextRegistryMask extends Assert {
 	public void shouldSetIdentifierPositions() {
 		registry.addField(new TextFieldMask("Field", 1, 10, 2, FieldType.A, true, true));
 
-		assertEquals(1, registry.getInitialPosition());
-		assertEquals(10, registry.getFinalPosition());
+		assertEquals(1, registry.getIdentifierInitialPosition());
+		assertEquals(10, registry.getIdentifierFinalPosition());
 	}
 	
 	@Test
