@@ -1,15 +1,22 @@
 package com.guilherme.etlfw.mask.registry;
-
+ 
 import com.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
 import com.guilherme.etlfw.mask.field.DelimitedFieldMask;
 
 public class DelimitedRegistryMask extends RegistryMask<DelimitedFieldMask> {
-
+	
 	public DelimitedRegistryMask(String tableName, String version,
 			String description) {
 		super(tableName, version, description);
 	}
 
+	public DelimitedFieldMask getIdentifier() {
+		for(DelimitedFieldMask field : getFields())
+			if(field.isRegistryType())
+				return field;
+		return null;
+	}
+	
 	public void setSize() {
 		setSize(0);
 		for (DelimitedFieldMask mask : getFields()) {

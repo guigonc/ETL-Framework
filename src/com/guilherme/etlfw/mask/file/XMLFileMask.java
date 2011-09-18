@@ -28,7 +28,7 @@ public class XMLFileMask extends FileMask<RegistryMask<?>> {
 				result = registry;
 				break;
 			}
-			if (registry.getTableName().equalsIgnoreCase(element.getTagName())) {
+			if (registry.getTagName().equalsIgnoreCase(element.getTagName())) {
 				result = registry;
 				break;
 			}

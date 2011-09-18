@@ -4,13 +4,20 @@ import com.guilherme.etlfw.exceptions.InvalidRegistrySizeException;
 import com.guilherme.etlfw.mask.field.FixedLengthFieldMask;
 
 public class FixedLengthRegistryMask extends RegistryMask<FixedLengthFieldMask> {
-
+	
 	public FixedLengthRegistryMask(String tableName, String version,
 			String description) {
 		
 		super(tableName, version, description);
 	}
-
+	
+	public FixedLengthFieldMask getIdentifier() {
+		for(FixedLengthFieldMask field : getFields())
+			if(field.isRegistryType())
+				return field;
+		return null;
+	}
+	
 	final public void setSize() {
 		setSize(0);
 		for (FixedLengthFieldMask mask : getFields()) {

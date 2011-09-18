@@ -26,4 +26,8 @@ public class ModificationAssignment {
 	public void setSolved(boolean status) {
 		this.solved = status;
 	}
+
+	public ModificationAssignment getClone() {
+		return new ModificationAssignment(getAssignmentTypeCode(), isSolved());
+	}
 }

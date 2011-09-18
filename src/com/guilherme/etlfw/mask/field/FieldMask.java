@@ -11,22 +11,22 @@ public abstract class FieldMask {
 	private String fieldName;
 	private FieldType fieldType;
 	private int decimals;
-	private boolean hasRegistryType;
+	private boolean isRegistryType;
 	private boolean isPrimaryKey;
 	private String value;
 	private List<ModificationAssignment> assignments;
 
-	public FieldMask(String fieldName, int decimals, FieldType fieldType,
-			boolean hasRegistryType, boolean isPrimaryKey) {
+	public FieldMask(String fieldName, int decimals, FieldType fieldType, boolean isRegistryType, boolean isPrimaryKey) {
 		this.fieldName = fieldName.toUpperCase();
 		this.fieldType = fieldType;
 		this.decimals = decimals;
-		this.hasRegistryType = hasRegistryType;
+		this.isRegistryType = isRegistryType;
 		this.isPrimaryKey = isPrimaryKey;
 		this.assignments = Collections.emptyList();
 	}
 
 	public abstract int size();
+	public abstract FieldMask getClone();
 
 	public String getFieldName() {
 		return fieldName;
@@ -40,8 +40,8 @@ public abstract class FieldMask {
 		return fieldType;
 	}
 
-	public boolean hasRegistryType() {
-		return hasRegistryType;
+	public boolean isRegistryType() {
+		return isRegistryType;
 	}
 
 	public boolean isPrimaryKey() {
@@ -72,5 +72,5 @@ public abstract class FieldMask {
 			assginment.setSolved(state);
 		}
 	}
-
+	
 }

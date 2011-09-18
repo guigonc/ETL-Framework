@@ -15,7 +15,6 @@ public abstract class RegistryMask<T extends FieldMask> {
 	private String version;
 	private String description;
 	private List<T> fields;
-	private T identifier;
 	private int size;
 
 	public RegistryMask(String tableName, String version, String description) {
@@ -50,26 +49,15 @@ public abstract class RegistryMask<T extends FieldMask> {
 		return size;
 	}
 
-	public T getIdentifier() {
-		return identifier;
-	}
-
 	public abstract void setSize();
 
+	@SuppressWarnings("unchecked")
 	public void addField(T field) {
 		if (this.fields.isEmpty()) {
 			this.fields = new ArrayList<T>();
 		}
-		this.fields.add(field);
-
+		this.fields.add((T) field.getClone());
 		setSize();
-		identifyRegistry(field);
-	}
-
-	private void identifyRegistry(T field) {
-		if (field.hasRegistryType() == true) {
-			this.identifier = field;
-		}
 	}
 
 	public String formatToInsert() {
@@ -77,7 +65,8 @@ public abstract class RegistryMask<T extends FieldMask> {
 
 		insertionFormat.addTableName(getTableName());
 		for (T field : fields) {
-			insertionFormat.addField(field);
+			if(!field.isRegistryType())
+				insertionFormat.addField(field);
 		}
 		insertionFormat.finish();
 		return insertionFormat.toString();
@@ -89,7 +78,8 @@ public abstract class RegistryMask<T extends FieldMask> {
 		tableCreationFormat.addTableName(getTableName());
 
 		for (T field : fields) {
-			tableCreationFormat.addField(field);
+			if(!field.isRegistryType())
+				tableCreationFormat.addField(field);
 		}
 		tableCreationFormat.finish();
 
@@ -101,7 +91,8 @@ public abstract class RegistryMask<T extends FieldMask> {
 
 		deletionformat.addTableName(getTableName());
 		for (T field : fields) {
-			deletionformat.addField(field);
+			if(!field.isRegistryType())
+				deletionformat.addField(field);
 		}
 		deletionformat.finish();
 		return deletionformat.toString();
@@ -112,7 +103,8 @@ public abstract class RegistryMask<T extends FieldMask> {
 
 		alterationFormat.addTableName(getTableName());
 		for (T field : fields) {
-			alterationFormat.addField(field);
+			if(!field.isRegistryType())
+				alterationFormat.addField(field);
 		}
 		alterationFormat.finish();
 		return alterationFormat.toString();

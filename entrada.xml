@@ -8,8 +8,12 @@
     	<Nome>Marcio Leandro Gonçalves</Nome>
       	<CPF>144.444.444-42</CPF>
    	</professor>
-   	<professor>
-    	<Nome>Claudio Fária</Nome>
-      	<CPF>555.444.555-44</CPF>
-   	</professor>
+   	<aluno>
+    	<Nome>Gabriel Vasques</Nome>
+      	<CPF>024.024.024-24</CPF>
+   	</aluno>
+   	<aluno>
+    	<Nome>Gulherme Fernando</Nome>
+      	<CPF>240.024.024-24</CPF>
+   	</aluno>
 </Professores>

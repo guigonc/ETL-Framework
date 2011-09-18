@@ -38,8 +38,9 @@ public class TestInseriontFormatBuilder extends Assert {
 	public void shouldCreateStatement() {
 		insertionFormat.addTableName("Table");
 		
-		FixedLengthFieldMask mask = new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
-		insertionFormat.addField(mask).addField(mask).finish();
+		FixedLengthFieldMask field = new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
+
+		insertionFormat.addField(field).addField(field).finish();
 		
 		assertEquals("INSERT INTO Table (FIELD,FIELD) VALUES(\"null\",\"null\");", insertionFormat.toString());
 	}

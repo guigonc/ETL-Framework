@@ -29,7 +29,7 @@ public class FixedLengthFileMask extends FileMask<FixedLengthRegistryMask>{
 			start = registry.getIdentifierInitialPosition() - 1;
 			end = registry.getIdentifierFinalPosition();
 			if ((start <= end) && (end <= size)) {
-				type = line.substring(start, end);
+				type = line.substring(start, end).trim();
 				if (registry.getTableName().equalsIgnoreCase(type)) {
 					result = registry;
 					break;

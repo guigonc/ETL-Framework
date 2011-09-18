@@ -9,6 +9,21 @@ import com.guilherme.etlfw.assignment.ModificationAssignment;
 public class TestFieldMask extends Assert {
 	
 	@Test
+	public void shouldInstanceFixedLengthFieldMask() {
+		FixedLengthFieldMask field = new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
+		
+		assertTrue(field instanceof FixedLengthFieldMask);
+		assertEquals("FIELD", field.getFieldName());
+		assertEquals(1,	field.getInitialPosition());
+		assertEquals(10, field.getFinalPosition());
+		assertEquals(FieldType.A, field.getFieldType());
+		assertEquals(10, field.size());
+		assertEquals(2, field.getDecimalPlaces());
+		assertEquals(false, field.isRegistryType());
+		assertEquals(true, field.isPrimaryKey());
+	}
+
+	@Test
 	public void shouldInstanceDelimitedFieldMask() {
 		DelimitedFieldMask field = new DelimitedFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
 		
@@ -18,13 +33,13 @@ public class TestFieldMask extends Assert {
 		assertEquals(FieldType.A, field.getFieldType());
 		assertEquals(10, field.size());
 		assertEquals(2, field.getDecimalPlaces());
-		assertEquals(false, field.hasRegistryType());
+		assertEquals(false, field.isRegistryType());
 		assertEquals(true, field.isPrimaryKey());
 	}
 	
 	@Test
 	public void shouldInstanceXMLFieldMask() {
-		XMLFieldMask field = new XMLFieldMask("Field", "field", 10, 2, FieldType.A, false, true);
+		XMLFieldMask field = new XMLFieldMask("Field", "field", 10, 2, FieldType.A, true);
 		
 		assertTrue(field instanceof XMLFieldMask);
 		assertEquals("FIELD", field.getFieldName());
@@ -32,13 +47,12 @@ public class TestFieldMask extends Assert {
 		assertEquals(FieldType.A, field.getFieldType());
 		assertEquals(10, field.size());
 		assertEquals(2, field.getDecimalPlaces());
-		assertEquals(false, field.hasRegistryType());
 		assertEquals(true, field.isPrimaryKey());
 	}
 	
 	@Test
 	public void shouldAddAlterationAssignment() {
-		XMLFieldMask field = new XMLFieldMask("Field", "field", 10, 2, FieldType.A, false, true);
+		XMLFieldMask field = new XMLFieldMask("Field", "field", 10, 2, FieldType.A, true);
 		ModificationAssignment assignment = new ModificationAssignment(AssignmentType.ALTER, false);
 		
 		assertTrue(field.getAlterationAssignment().isEmpty());
@@ -50,7 +64,7 @@ public class TestFieldMask extends Assert {
 	
 	@Test
 	public void shouldModifyAssignmentState() {
-		XMLFieldMask field = new XMLFieldMask("Field", "field", 10, 2, FieldType.A, false, true);
+		XMLFieldMask field = new XMLFieldMask("Field", "field", 10, 2, FieldType.A, true);
 		ModificationAssignment assignment = new ModificationAssignment(AssignmentType.ALTER, false);
 		
 		field.addAssignment(assignment);

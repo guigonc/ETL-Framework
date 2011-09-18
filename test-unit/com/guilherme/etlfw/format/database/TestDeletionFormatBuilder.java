@@ -5,8 +5,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.guilherme.etlfw.assignment.AssignmentType;
-import com.guilherme.etlfw.assignment.ModificationAssignment;
 import com.guilherme.etlfw.mask.field.FieldType;
 import com.guilherme.etlfw.mask.field.FixedLengthFieldMask;
 
@@ -40,12 +38,11 @@ public class TestDeletionFormatBuilder extends Assert {
 	public void shouldCreateStatement() {
 		deletionFormat.addTableName("Table");
 		
-		ModificationAssignment assignment = new ModificationAssignment(AssignmentType.ALTER, false);
-		FixedLengthFieldMask mask = new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
-		mask.addAssignment(assignment);
-		deletionFormat.addField(mask).addField(mask).finish();
+		FixedLengthFieldMask field = new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
+
+		deletionFormat.addField(field).finish();
 		
-		assertEquals("DELETE FROM Table WHERE FIELD=\"null\" AND FIELD=\"null\";", deletionFormat.toString());
+		assertEquals("DELETE FROM Table WHERE FIELD=\"null\";", deletionFormat.toString());
 	}
 	
 }

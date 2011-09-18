@@ -69,7 +69,7 @@ public class TestRegistryMask extends Assert {
 		XMLRegistryMask registry = new XMLRegistryMask("Professores", "professor", "1.0", "Professor");
 		
 		assertTrue(registry.getFields().isEmpty());
-		registry.addField(new XMLFieldMask("Field", "field", 10, 2, FieldType.A, false, true));
+		registry.addField(new XMLFieldMask("Field", "field", 10, 2, FieldType.A, true));
 		assertFalse(registry.getFields().isEmpty());
 	}
 	
@@ -99,15 +99,15 @@ public class TestRegistryMask extends Assert {
 		XMLRegistryMask registry = new XMLRegistryMask("Professores", "professor", "1.0", "Professor");
 		XMLReader reader = new XMLReader("/home/guilherme/workspace/ETL-Framework/entrada.xml");
 
-		registry.addField(new XMLFieldMask("Nome", "Nome", 10, 2, FieldType.A, false, true));
+		registry.addField(new XMLFieldMask("Nome", "Nome", 10, 2, FieldType.A, true));
 		assertEquals("Luiz Gomes", registry.getRegistryWithValues(reader.getElement()).getFields().get(0).getValue());
 	}
 	
 	@Test
-	public void shouldGenerateTheSQLStatements() {
+	public void shouldGenerateSQLStatementsFromXMLMask() {
 		XMLRegistryMask registry = new XMLRegistryMask("Professores", "professor", "1.0", "Professor");
-		XMLFieldMask field = new XMLFieldMask("Field", "field", 10, 2, FieldType.A, false, true);
-		
+		XMLFieldMask field = new XMLFieldMask("Field", "field", 10, 2, FieldType.A, true);
+
 		field.addAssignment(new ModificationAssignment(AssignmentType.ALTER, false));
 		registry.addField(field);
 		
@@ -117,9 +117,24 @@ public class TestRegistryMask extends Assert {
 	}
 	
 	@Test
+	public void shouldGenerateSQLStatementsFromTextMask() {
+		DelimitedRegistryMask registry = new DelimitedRegistryMask("Professores", "1.0", "Professor");
+		DelimitedFieldMask type = new DelimitedFieldMask("Type", 0, 10, 2, FieldType.A, true, false);
+		DelimitedFieldMask field = new DelimitedFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
+
+		field.addAssignment(new ModificationAssignment(AssignmentType.ALTER, false));
+		registry.addField(field);
+		registry.addField(type);
+		
+		assertEquals("CREATE TABLE IF NOT EXISTS Professores (FIELD VARCHAR(12,2), PRIMARY KEY(FIELD))ENGINE='MYISAM';", registry.formatToCreateTable());
+		assertEquals("ALTER TABLE Professores MODIFY FIELD VARCHAR(12,2), DROP PRIMARY KEY, ADD PRIMARY KEY(FIELD);", registry.formatToAlter());
+		assertEquals("DELETE FROM Professores WHERE FIELD=\"null\";", registry.formatToDelete());
+	}
+	
+	@Test
 	public void shouldChangeAssignmentStatement() {
 		XMLRegistryMask registry = new XMLRegistryMask("Professores", "professor", "1.0", "Professor");
-		XMLFieldMask field = new XMLFieldMask("Field", "field", 10, 2, FieldType.A, false, true);
+		XMLFieldMask field = new XMLFieldMask("Field", "field", 10, 2, FieldType.A, true);
 		ModificationAssignment assignment = new ModificationAssignment(AssignmentType.ALTER, false);
 		
 		field.addAssignment(assignment);

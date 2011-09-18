@@ -5,8 +5,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.guilherme.etlfw.assignment.AssignmentType;
-import com.guilherme.etlfw.assignment.ModificationAssignment;
 import com.guilherme.etlfw.mask.field.FieldType;
 import com.guilherme.etlfw.mask.field.FixedLengthFieldMask;
 
@@ -40,12 +38,11 @@ public class TestTableCreationFormatBuilder extends Assert {
 	public void shouldCreateStatement() {
 		tableCreationFormat.addTableName("Table");
 		
-		ModificationAssignment assignment = new ModificationAssignment(AssignmentType.ALTER, false);
-		FixedLengthFieldMask mask = new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
-		mask.addAssignment(assignment);
-		tableCreationFormat.addField(mask).addField(mask).finish();
+		FixedLengthFieldMask field = new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
+
+		tableCreationFormat.addField(field).finish();
 		
-		assertEquals("CREATE TABLE IF NOT EXISTS Table (FIELD VARCHAR(12,2),FIELD VARCHAR(12,2), PRIMARY KEY(FIELD,FIELD))ENGINE='MYISAM';", tableCreationFormat.toString());
+		assertEquals("CREATE TABLE IF NOT EXISTS Table (FIELD VARCHAR(12,2), PRIMARY KEY(FIELD))ENGINE='MYISAM';", tableCreationFormat.toString());
 	}
 	
 }

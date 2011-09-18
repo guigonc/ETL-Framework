@@ -29,8 +29,8 @@ public class DelimitedFileMask extends FileMask<DelimitedRegistryMask> {
 				result = registry;
 				break;
 			}
-			if (registry.getTableName().equalsIgnoreCase(
-					splittedLine[registry.getIdentifier().getPosition()])) {
+			
+			if (registry.getTableName().equalsIgnoreCase(splittedLine[registry.getIdentifier().getPosition()])) {
 				result = registry;
 				break;
 			}
