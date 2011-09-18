@@ -26,14 +26,20 @@ public class AlterationFormatBuilder extends DataBaseFormat {
 		if (!formattedAssignment.isEmpty()) {
 			this.mainClause.append(formattedAssignment);
 		}
+		if(field.isPrimaryKey()) {
+			if(complementaryClause == null)
+				complementaryClause = new StringBuilder(space() + "DROP PRIMARY KEY" + comma() + " ADD PRIMARY KEY" + open());
+			else
+				complementaryClause.append(comma());
+			complementaryClause.append(field.getFieldName());
+		}
 		return this;
 	}
 
 	private String formatAssignment(FieldMask field) {
 		StringBuilder result = new StringBuilder();
 
-		for (ModificationAssignment assignment : field
-				.getAlterationAssignment()) {
+		for (ModificationAssignment assignment : field.getAlterationAssignment()) {
 			if ((assignment.isSolved())
 					|| (assignment.getAssignmentTypeCode() == AssignmentType.DELETE)) {
 				continue;
@@ -60,10 +66,17 @@ public class AlterationFormatBuilder extends DataBaseFormat {
 
 	public AlterationFormatBuilder finish() {
 		if (hasField) {
+			if(complementaryClause != null) {
+				complementaryClause.append(close());
+				mainClause.append(comma()).append(complementaryClause);
+				complementaryClause = null;
+			}
 			this.mainClause.append(";");
 		} else {
 			this.mainClause = new StringBuilder();
+			this.complementaryClause = new StringBuilder();
 		}
 		return this;
 	}
+	
 }

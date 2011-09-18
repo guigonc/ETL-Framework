@@ -112,7 +112,7 @@ public class TestRegistryMask extends Assert {
 		registry.addField(field);
 		
 		assertEquals("CREATE TABLE IF NOT EXISTS Professores (FIELD VARCHAR(12,2), PRIMARY KEY(FIELD))ENGINE='MYISAM';", registry.formatToCreateTable());
-		assertEquals("ALTER TABLE Professores MODIFY FIELD VARCHAR(12,2);", registry.formatToAlter());
+		assertEquals("ALTER TABLE Professores MODIFY FIELD VARCHAR(12,2), DROP PRIMARY KEY, ADD PRIMARY KEY(FIELD);", registry.formatToAlter());
 		assertEquals("DELETE FROM Professores WHERE FIELD=\"null\";", registry.formatToDelete());
 	}
 	

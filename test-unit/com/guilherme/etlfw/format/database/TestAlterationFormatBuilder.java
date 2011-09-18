@@ -41,7 +41,7 @@ public class TestAlterationFormatBuilder extends Assert {
 		alterationFormat.addTableName("Table");
 		
 		ModificationAssignment assignment = new ModificationAssignment(AssignmentType.ALTER, false);
-		FixedLengthFieldMask mask = new FixedLengthFieldMask("field", 1, 10, 2, FieldType.A, false, true);
+		FixedLengthFieldMask mask = new FixedLengthFieldMask("field", 1, 10, 2, FieldType.A, false, false);
 		mask.addAssignment(assignment);
 		alterationFormat.addField(mask);
 		
@@ -57,7 +57,7 @@ public class TestAlterationFormatBuilder extends Assert {
 		mask.addAssignment(assignment);
 		alterationFormat.addField(mask).addField(mask).finish();
 		
-		assertEquals("ALTER TABLE Table MODIFY FIELD VARCHAR(12,2),MODIFY FIELD VARCHAR(12,2);", alterationFormat.toString());
+		assertEquals("ALTER TABLE Table MODIFY FIELD VARCHAR(12,2),MODIFY FIELD VARCHAR(12,2), DROP PRIMARY KEY, ADD PRIMARY KEY(FIELD,FIELD);", alterationFormat.toString());
 	}
 	
 	@Test

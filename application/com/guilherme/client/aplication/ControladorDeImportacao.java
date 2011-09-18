@@ -70,9 +70,9 @@ public class ControladorDeImportacao {
 			while ((linha = leitor.readLine()) != null) {
 				try {
 					registro = mascaraDeArquivo.getRegistryWithValues(linha);
-					//System.out.println(registro.formatToAlter());
-					System.out.println(registro.formatToCreateTable());
-					PersistenceMechanism.insert(registro);
+					System.out.println(registro.formatToAlter());
+					//System.out.println(registro.formatToCreateTable());
+					//PersistenceMechanism.insert(registro);
 				} catch (UnkownRegistryException e) {
 					e.printStackTrace();
 				} catch (InvalidRegistrySizeException e) {
