@@ -111,10 +111,9 @@ public class TestRegistryMask extends Assert {
 		field.addAssignment(new ModificationAssignment(AssignmentType.ALTER, false));
 		registry.addField(field);
 		
-		assertEquals("CREATE TABLE IF NOT EXISTS Professores (FIELD VARCHAR(12,2))ENGINE='MYISAM';", registry.formatToCreateTable());
+		assertEquals("CREATE TABLE IF NOT EXISTS Professores (FIELD VARCHAR(12,2), PRIMARY KEY(FIELD))ENGINE='MYISAM';", registry.formatToCreateTable());
 		assertEquals("ALTER TABLE Professores MODIFY FIELD VARCHAR(12,2);", registry.formatToAlter());
 		assertEquals("DELETE FROM Professores WHERE FIELD=\"null\";", registry.formatToDelete());
-		assertEquals("CREATE TABLE IF NOT EXISTS Professores (FIELD VARCHAR(12,2))ENGINE='MYISAM';", registry.formatToCreateTable());
 	}
 	
 	@Test

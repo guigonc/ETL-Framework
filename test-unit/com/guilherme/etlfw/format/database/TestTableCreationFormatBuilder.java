@@ -45,7 +45,7 @@ public class TestTableCreationFormatBuilder extends Assert {
 		mask.addAssignment(assignment);
 		tableCreationFormat.addField(mask).addField(mask).finish();
 		
-		assertEquals("CREATE TABLE IF NOT EXISTS Table (FIELD VARCHAR(12,2),FIELD VARCHAR(12,2))ENGINE='MYISAM';", tableCreationFormat.toString());
+		assertEquals("CREATE TABLE IF NOT EXISTS Table (FIELD VARCHAR(12,2),FIELD VARCHAR(12,2), PRIMARY KEY(FIELD,FIELD))ENGINE='MYISAM';", tableCreationFormat.toString());
 	}
 	
 }

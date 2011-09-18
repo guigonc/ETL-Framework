@@ -28,8 +28,8 @@ import com.guilherme.etlfw.xml.reader.XMLReader;
 public class ControladorDeImportacao {
 	public ControladorDeImportacao() {
 		execucaoDelimitado();
-		execucaoTamanhoFixo();
-		execucaoXML();
+		//execucaoTamanhoFixo();
+		//execucaoXML();
 	}
 
 	private void execucaoDelimitado() {
@@ -70,7 +70,7 @@ public class ControladorDeImportacao {
 			while ((linha = leitor.readLine()) != null) {
 				try {
 					registro = mascaraDeArquivo.getRegistryWithValues(linha);
-					System.out.println(registro.formatToAlter());
+					//System.out.println(registro.formatToAlter());
 					System.out.println(registro.formatToCreateTable());
 					PersistenceMechanism.insert(registro);
 				} catch (UnkownRegistryException e) {

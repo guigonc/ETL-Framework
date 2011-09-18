@@ -10,30 +10,40 @@ public class TableCreationFormatBuilder extends DataBaseFormat {
 
 	public TableCreationFormatBuilder addTableName(String tableName) {
 		if (!hasHeader) {
-			this.mainClause.append(space());
-			this.mainClause.append(tableName);
-			this.mainClause.append(space());
-			this.mainClause.append(open());
-			this.hasHeader = true;
+			mainClause.append(space());
+			mainClause.append(tableName);
+			mainClause.append(space());
+			mainClause.append(open());
+			hasHeader = true;
 		}
 		return this;
 	}
 
 	public TableCreationFormatBuilder addField(FieldMask mask) {
 		if (hasField) {
-			this.mainClause.append(comma());
+			mainClause.append(comma());
 		} else {
-			this.hasField = true;
+			hasField = true;
 		}
-		this.mainClause.append(formatField(mask));
-		if(mask.isPrimaryKey())
-			this.mainClause.append(space() + "PRIMARY KEY");
+		mainClause.append(formatField(mask));
+		if (mask.isPrimaryKey()) {
+			if(complementaryClause == null)
+				complementaryClause = new StringBuilder(space() + "PRIMARY KEY" + open());
+			else
+				complementaryClause.append(comma());
+			complementaryClause.append(mask.getFieldName());
+		}
 		return this;
 	}
 
 	public TableCreationFormatBuilder finish() {
-		this.mainClause.append(close());
-		this.mainClause.append("ENGINE='MYISAM';");
+		if(complementaryClause != null) {
+			complementaryClause.append(close());
+			mainClause.append(comma()).append(complementaryClause);
+			complementaryClause = null;
+		}
+		mainClause.append(close());
+		mainClause.append("ENGINE='MYISAM';");
 		return this;
 	}
 
