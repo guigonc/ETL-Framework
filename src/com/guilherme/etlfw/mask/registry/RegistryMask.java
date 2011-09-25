@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.guilherme.etlfw.format.database.AlterationFormatBuilder;
-import com.guilherme.etlfw.format.database.DeletionFormatBuilder;
-import com.guilherme.etlfw.format.database.InsertionFormatBuilder;
-import com.guilherme.etlfw.format.database.TableCreationFormatBuilder;
+import com.guilherme.etlfw.dbformat.AlterationFormatBuilder;
+import com.guilherme.etlfw.dbformat.DeletionFormatBuilder;
+import com.guilherme.etlfw.dbformat.InsertionFormatBuilder;
+import com.guilherme.etlfw.dbformat.TableCreationFormatBuilder;
 import com.guilherme.etlfw.mask.field.FieldMask;
 
 public abstract class RegistryMask<T extends FieldMask> {

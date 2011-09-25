@@ -139,9 +139,10 @@ public class TestRegistryMask extends Assert {
 		
 		field.addAssignment(assignment);
 		registry.addField(field);
+		
+		assertFalse(registry.getFields().get(0).getAlterationAssignment().get(0).isSolved());
 		registry.changeAssignmentState(true);
-
-		assertEquals(true, assignment.isSolved());
+		assertTrue(registry.getFields().get(0).getAlterationAssignment().get(0).isSolved());
 	}
 	
 }

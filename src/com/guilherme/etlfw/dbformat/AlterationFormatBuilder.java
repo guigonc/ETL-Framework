@@ -1,4 +1,4 @@
-package com.guilherme.etlfw.format.database;
+package com.guilherme.etlfw.dbformat;
 
 import com.guilherme.etlfw.assignment.AssignmentType;
 import com.guilherme.etlfw.assignment.ModificationAssignment;

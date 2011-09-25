@@ -68,8 +68,8 @@ public abstract class FieldMask {
 	}
 
 	public void modifyAssignmentState(boolean state) {
-		for (ModificationAssignment assginment : getAlterationAssignment()) {
-			assginment.setSolved(state);
+		for (ModificationAssignment assignment : getAlterationAssignment()) {
+			assignment.setSolved(state);
 		}
 	}
 	

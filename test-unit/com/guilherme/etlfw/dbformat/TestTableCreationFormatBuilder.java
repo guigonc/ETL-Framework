@@ -1,10 +1,11 @@
-package com.guilherme.etlfw.format.database;
+package com.guilherme.etlfw.dbformat;
 
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.guilherme.etlfw.dbformat.TableCreationFormatBuilder;
 import com.guilherme.etlfw.mask.field.FieldType;
 import com.guilherme.etlfw.mask.field.FixedLengthFieldMask;
 

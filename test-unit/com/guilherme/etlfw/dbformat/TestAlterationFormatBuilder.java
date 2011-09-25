@@ -1,4 +1,4 @@
-package com.guilherme.etlfw.format.database;
+package com.guilherme.etlfw.dbformat;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import com.guilherme.etlfw.assignment.AssignmentType;
 import com.guilherme.etlfw.assignment.ModificationAssignment;
+import com.guilherme.etlfw.dbformat.AlterationFormatBuilder;
 import com.guilherme.etlfw.mask.field.FieldType;
 import com.guilherme.etlfw.mask.field.FixedLengthFieldMask;
 
