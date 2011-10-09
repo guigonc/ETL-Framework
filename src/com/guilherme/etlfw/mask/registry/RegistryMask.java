@@ -52,7 +52,7 @@ public abstract class RegistryMask<T extends FieldMask> {
 	public abstract void setSize();
 
 	@SuppressWarnings("unchecked")
-	public void addField(T field) {
+	public void addFieldMask(T field) {
 		if (this.fields.isEmpty()) {
 			this.fields = new ArrayList<T>();
 		}

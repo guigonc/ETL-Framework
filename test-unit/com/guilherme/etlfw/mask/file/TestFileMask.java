@@ -53,8 +53,8 @@ public class TestFileMask extends Assert {
 		
 		FixedLengthRegistryMask registryMask = new FixedLengthRegistryMask("Professores", "1.0", "Professor");
 
-		registryMask.addField(nameMask);
-		registryMask.addField(documentMask);
+		registryMask.addFieldMask(nameMask);
+		registryMask.addFieldMask(documentMask);
 		file.addRegistryMask(registryMask);
 		
 		try {

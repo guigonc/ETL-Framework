@@ -52,7 +52,7 @@ public class TestRegistryMask extends Assert {
 	public void shouldAddFixedLengthField() {
 		FixedLengthRegistryMask registry = new FixedLengthRegistryMask("Professores", "1.0", "Professor");
 		assertTrue(registry.getFields().isEmpty());
-		registry.addField(new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true));
+		registry.addFieldMask(new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true));
 		assertFalse(registry.getFields().isEmpty());
 	}
 
@@ -60,7 +60,7 @@ public class TestRegistryMask extends Assert {
 	public void shouldAddDelimitedField() {
 		DelimitedRegistryMask registry = new DelimitedRegistryMask("Professores", "1.0", "Professor");
 		assertTrue(registry.getFields().isEmpty());
-		registry.addField(new DelimitedFieldMask("Field", 1, 10, 2, FieldType.A, false, true));
+		registry.addFieldMask(new DelimitedFieldMask("Field", 1, 10, 2, FieldType.A, false, true));
 		assertFalse(registry.getFields().isEmpty());
 	}
 	
@@ -69,14 +69,14 @@ public class TestRegistryMask extends Assert {
 		XMLRegistryMask registry = new XMLRegistryMask("Professores", "professor", "1.0", "Professor");
 		
 		assertTrue(registry.getFields().isEmpty());
-		registry.addField(new XMLFieldMask("Field", "field", 10, 2, FieldType.A, true));
+		registry.addFieldMask(new XMLFieldMask("Field", "field", 10, 2, FieldType.A, true));
 		assertFalse(registry.getFields().isEmpty());
 	}
 	
 	@Test
 	public void shouldGetFixedLengthRegistryWithValues() {
 		FixedLengthRegistryMask registry = new FixedLengthRegistryMask("Professores", "1.0", "Professor");
-		registry.addField(new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true));
+		registry.addFieldMask(new FixedLengthFieldMask("Field", 1, 10, 2, FieldType.A, false, true));
 		try {
 			assertEquals("Field     ", registry.getRegistryWithValues("Field     ").getFields().get(0).getValue());
 		} catch (InvalidRegistrySizeException e) {};
@@ -86,8 +86,8 @@ public class TestRegistryMask extends Assert {
 	public void shouldGedDelimitedRegistryWithValues() {
 		DelimitedRegistryMask registry = new DelimitedRegistryMask("Professores", "1.0", "Professor");
 		
-		registry.addField(new DelimitedFieldMask("Nome" ,0, 25, 2, FieldType.A, false, true));
-		registry.addField(new DelimitedFieldMask("CPF", 1, 14, 2, FieldType.A, false, true));
+		registry.addFieldMask(new DelimitedFieldMask("Nome" ,0, 25, 2, FieldType.A, false, true));
+		registry.addFieldMask(new DelimitedFieldMask("CPF", 1, 14, 2, FieldType.A, false, true));
 		try {
 			assertEquals("Luiz Gomes", registry.getRegistryWithValues("Luiz Gomes;211.111.111-12;",';').getFields().get(0).getValue());
 			assertEquals("211.111.111-12", registry.getRegistryWithValues("Luiz Gomes;211.111.111-12;",';').getFields().get(1).getValue());
@@ -99,7 +99,7 @@ public class TestRegistryMask extends Assert {
 		XMLRegistryMask registry = new XMLRegistryMask("Professores", "professor", "1.0", "Professor");
 		XMLReader reader = new XMLReader("/home/guilherme/workspace/ETL-Framework/entrada.xml");
 
-		registry.addField(new XMLFieldMask("Nome", "Nome", 10, 2, FieldType.A, true));
+		registry.addFieldMask(new XMLFieldMask("Nome", "Nome", 10, 2, FieldType.A, true));
 		assertEquals("Luiz Gomes", registry.getRegistryWithValues(reader.getElement()).getFields().get(0).getValue());
 	}
 	
@@ -109,7 +109,7 @@ public class TestRegistryMask extends Assert {
 		XMLFieldMask field = new XMLFieldMask("Field", "field", 10, 2, FieldType.A, true);
 
 		field.addAssignment(new ModificationAssignment(AssignmentType.ALTER, false));
-		registry.addField(field);
+		registry.addFieldMask(field);
 		
 		assertEquals("CREATE TABLE IF NOT EXISTS Professores (FIELD VARCHAR(12,2), PRIMARY KEY(FIELD))ENGINE='MYISAM';", registry.formatToCreateTable());
 		assertEquals("ALTER TABLE Professores MODIFY FIELD VARCHAR(12,2), DROP PRIMARY KEY, ADD PRIMARY KEY(FIELD);", registry.formatToAlter());
@@ -123,8 +123,8 @@ public class TestRegistryMask extends Assert {
 		DelimitedFieldMask field = new DelimitedFieldMask("Field", 1, 10, 2, FieldType.A, false, true);
 
 		field.addAssignment(new ModificationAssignment(AssignmentType.ALTER, false));
-		registry.addField(field);
-		registry.addField(type);
+		registry.addFieldMask(field);
+		registry.addFieldMask(type);
 		
 		assertEquals("CREATE TABLE IF NOT EXISTS Professores (FIELD VARCHAR(12,2), PRIMARY KEY(FIELD))ENGINE='MYISAM';", registry.formatToCreateTable());
 		assertEquals("ALTER TABLE Professores MODIFY FIELD VARCHAR(12,2), DROP PRIMARY KEY, ADD PRIMARY KEY(FIELD);", registry.formatToAlter());
@@ -138,7 +138,7 @@ public class TestRegistryMask extends Assert {
 		ModificationAssignment assignment = new ModificationAssignment(AssignmentType.ALTER, false);
 		
 		field.addAssignment(assignment);
-		registry.addField(field);
+		registry.addFieldMask(field);
 		
 		assertFalse(registry.getFields().get(0).getAlterationAssignment().get(0).isSolved());
 		registry.changeAssignmentState(true);
