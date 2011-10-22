@@ -11,9 +11,8 @@ import com.guilherme.etlfw.exceptions.UnkownRegistryException;
 import com.guilherme.etlfw.mask.file.FixedLengthFileMask;
 import com.guilherme.etlfw.mask.registry.FixedLengthRegistryMask;
 
-public abstract class FixedLengthFileExtractor {
+public abstract class FixedLengthFileExtractor extends FileExtractor<FixedLengthFileMask>{
 
-	private FixedLengthFileMask fileMask;
 	private BufferedReader reader;
 	private FileReader readerTool;
 	private String line;
@@ -25,17 +24,19 @@ public abstract class FixedLengthFileExtractor {
 		reader = new BufferedReader(readerTool);
 	}
 	
-	public FixedLengthRegistryMask extractOne() throws UnkownRegistryException, InvalidRegistrySizeException {
+	public final FixedLengthRegistryMask extractOne() throws UnkownRegistryException, InvalidRegistrySizeException {
 		return fileMask.getRegistryWithValues(line);
 	}
 	
-	public boolean next() throws IOException {
-		if((line = reader.readLine()) != null)
-			return true;
+	@Override
+	public final boolean next() {
+		try {
+			if((line = reader.readLine()) != null)
+				return true;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return false;
 	}
-	
-	protected abstract FixedLengthFileMask getFileMaskDesign();
-
 
 }
