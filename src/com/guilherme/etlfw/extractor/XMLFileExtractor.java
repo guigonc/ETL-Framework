@@ -5,12 +5,12 @@ import com.guilherme.etlfw.mask.file.XMLFileMask;
 import com.guilherme.etlfw.mask.registry.XMLRegistryMask;
 import com.guilherme.etlfw.xml.reader.XMLReader;
 
-public abstract class XMLFileExtractor extends FileExtractor<XMLFileMask>{
+public class XMLFileExtractor extends FileExtractor<XMLFileMask>{
 	
 	private XMLReader reader;
 	
-	public XMLFileExtractor(String fileName) {
-		fileMask = getFileMaskDesign();
+	public XMLFileExtractor(String fileName, XMLFileMask fileMask) {
+		super(fileMask);
 		reader = new XMLReader(fileName);
 	}
 	

@@ -11,15 +11,14 @@ import com.guilherme.etlfw.exceptions.UnkownRegistryException;
 import com.guilherme.etlfw.mask.file.FixedLengthFileMask;
 import com.guilherme.etlfw.mask.registry.FixedLengthRegistryMask;
 
-public abstract class FixedLengthFileExtractor extends FileExtractor<FixedLengthFileMask>{
+public class FixedLengthFileExtractor extends FileExtractor<FixedLengthFileMask>{
 
 	private BufferedReader reader;
 	private FileReader readerTool;
 	private String line;
 	
-	public FixedLengthFileExtractor(String fileName) throws FileNotFoundException {
-		this.fileMask = getFileMaskDesign();
-
+	public FixedLengthFileExtractor(String fileName, FixedLengthFileMask fileMask) throws FileNotFoundException {
+		super(fileMask);
 		readerTool = new FileReader(new File(fileName));
 		reader = new BufferedReader(readerTool);
 	}

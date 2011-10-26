@@ -53,7 +53,6 @@ public abstract class DataBaseFormat {
 		StringBuilder result = new StringBuilder();
 		switch (field.getFieldType()) {
 		case N:
-		case NS:
 			result.append(formatDecimalValue(field.getValue(),
 					field.getDecimalPlaces()));
 			break;
@@ -63,8 +62,6 @@ public abstract class DataBaseFormat {
 		case HH:
 		case MI:
 		case SS:
-		case ML:
-		case SL:
 			result.append(field.getValue());
 			break;
 		default:

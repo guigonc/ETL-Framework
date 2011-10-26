@@ -11,14 +11,14 @@ import com.guilherme.etlfw.exceptions.UnkownRegistryException;
 import com.guilherme.etlfw.mask.file.DelimitedFileMask;
 import com.guilherme.etlfw.mask.registry.DelimitedRegistryMask;
 
-public abstract class DelimitedFileExtractor extends FileExtractor<DelimitedFileMask>{
+public class DelimitedFileExtractor extends FileExtractor<DelimitedFileMask>{
 	
 	private BufferedReader reader;
 	private FileReader readerTool;
 	private String line;
 	
-	public DelimitedFileExtractor(String fileName) throws FileNotFoundException {
-		fileMask = getFileMaskDesign();
+	public DelimitedFileExtractor(String fileName, DelimitedFileMask fileMask) throws FileNotFoundException {
+		super(fileMask);
 		readerTool = new FileReader(new File(fileName));
 		reader = new BufferedReader(readerTool);
 	}
@@ -37,5 +37,5 @@ public abstract class DelimitedFileExtractor extends FileExtractor<DelimitedFile
 		}
 		return false;
 	}
-	
+
 }

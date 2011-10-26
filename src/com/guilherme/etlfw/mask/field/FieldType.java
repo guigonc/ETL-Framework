@@ -2,7 +2,7 @@ package com.guilherme.etlfw.mask.field;
 
 public enum FieldType {
 
-	A, N, NS, AN, ANS, MM, DD, YYYY, HH, MI, SS, DATA1, DATE2, CID, HOUR, UF, ML, SL;
+	A, N, MM, DD, YYYY, HH, MI, SS, DATE1, DATE2, HOUR, UF;
 
 	public static String getIndexFieldType(FieldType type) {
 
@@ -14,68 +14,45 @@ public enum FieldType {
 			return "1";
 		}
 
-		if (type.equals(FieldType.NS)) {
+
+		if (type.equals(FieldType.MM)) {
 			return "2";
 		}
 
-		if (type.equals(FieldType.AN)) {
+		if (type.equals(FieldType.DD)) {
 			return "3";
 		}
 
-		if (type.equals(FieldType.ANS)) {
+		if (type.equals(FieldType.YYYY)) {
 			return "4";
 		}
 
-		if (type.equals(FieldType.MM)) {
+		if (type.equals(FieldType.HH)) {
 			return "5";
 		}
 
-		if (type.equals(FieldType.DD)) {
+		if (type.equals(FieldType.MI)) {
 			return "6";
 		}
 
-		if (type.equals(FieldType.YYYY)) {
+		if (type.equals(FieldType.SS)) {
 			return "7";
 		}
 
-		if (type.equals(FieldType.HH)) {
+		if (type.equals(FieldType.DATE1)) {
 			return "8";
 		}
 
-		if (type.equals(FieldType.MI)) {
+		if (type.equals(FieldType.DATE2)) {
 			return "9";
 		}
 
-		if (type.equals(FieldType.SS)) {
+		if (type.equals(FieldType.HOUR)) {
 			return "10";
 		}
 
-		if (type.equals(FieldType.DATA1)) {
-			return "11";
-		}
-
-		if (type.equals(FieldType.DATE2)) {
-			return "12";
-		}
-
-		if (type.equals(FieldType.CID)) {
-			return "13";
-		}
-
-		if (type.equals(FieldType.HOUR)) {
-			return "14";
-		}
-
 		if (type.equals(FieldType.UF)) {
-			return "15";
-		}
-
-		if (type.equals(FieldType.ML)) {
-			return "90";
-		}
-
-		if (type.equals(FieldType.SL)) {
-			return "91";
+			return "11";
 		}
 
 		return "0";
@@ -89,38 +66,25 @@ public enum FieldType {
 		case 1:
 			return FieldType.N;
 		case 2:
-			return FieldType.NS;
-		case 3:
-			return FieldType.AN;
-		case 4:
-			return FieldType.ANS;
-		case 5:
 			return FieldType.MM;
-		case 6:
+		case 3:
 			return FieldType.DD;
-		case 7:
+		case 4:
 			return FieldType.YYYY;
-		case 8:
+		case 5:
 			return FieldType.HH;
-		case 9:
+		case 6:
 			return FieldType.MI;
-		case 10:
+		case 7:
 			return FieldType.SS;
-		case 11:
-			return FieldType.DATA1;
-		case 12:
+		case 8:
+			return FieldType.DATE1;
+		case 9:
 			return FieldType.DATE2;
-		case 13:
-			return FieldType.CID;
-		case 14:
+		case 10:
 			return FieldType.HOUR;
-		case 15:
+		case 11:
 			return FieldType.UF;
-		case 90:
-			return FieldType.ML;
-		case 91:
-			return FieldType.SL;
-
 		}
 		return FieldType.A;
 	}
@@ -135,18 +99,6 @@ public enum FieldType {
 			return "DECIMAL";
 		}
 
-		if (type.equals(FieldType.NS)) {
-			return "DECIMAL";
-		}
-
-		if (type.equals(FieldType.AN)) {
-			return "VARCHAR";
-		}
-
-		if (type.equals(FieldType.ANS)) {
-			return "VARCHAR";
-		}
-
 		if (type.equals(FieldType.MM)) {
 			return "DECIMAL";
 		}
@@ -171,16 +123,12 @@ public enum FieldType {
 			return "DECIMAL";
 		}
 
-		if (type.equals(FieldType.DATA1)) {
+		if (type.equals(FieldType.DATE1)) {
 			return "VARCHAR";
 		}
 
 		if (type.equals(FieldType.DATE2)) {
 			return "DATE";
-		}
-
-		if (type.equals(FieldType.CID)) {
-			return "VARCHAR";
 		}
 
 		if (type.equals(FieldType.HOUR)) {
@@ -191,13 +139,6 @@ public enum FieldType {
 			return "CHAR";
 		}
 
-		if (type.equals(FieldType.ML)) {
-			return "DECIMAL";
-		}
-
-		if (type.equals(FieldType.SL)) {
-			return "DECIMAL";
-		}
 		return "VARCHAR";
 	}
 }
