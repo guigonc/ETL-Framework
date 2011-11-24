@@ -1,4 +1,4 @@
 ProfessoresClaudio Fária           133.333.333-33Masculino
 ProfessoresLuciana De Nardin       144.444.444-41Feminino
 ProfessoresFabiano Teixeira        155.555.555-55Masculino
-Alunos     Rafael Valério          333.666.999-00
+Alunos     Rafael Valério          333.666.999-00Masculino
